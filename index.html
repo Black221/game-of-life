@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://kit.fontawesome.com/6d81ce15ab.js" crossorigin="anonymous"></script>
+    <title>Game of life</title>
+</head>
+<body>
+    <main>
+        <div id="main-container">
+            <div id="sidebar">
+                
+                <div id="sidebar-content" class="content">
+                    <div class="sidebar-title">
+                        <span>Element stable</span>
+                    </div>
+                    <div class="category-filter">
+                        <select name="category" id="categories">
+                            <option value="all">All</option>
+                            <option value="still">Still lifes</option>
+                            <option value="oscillators">Oscillators</option>
+                            <option value="spaceships">Spaceships</option>
+                            <option value="gun">Gun</option>
+                        </select>
+                    </div>
+                    <div id="object-render" class="object-render">
+                        <!-- <div class="object">
+                            <div class="object-btn">
+                                <button class="btn btn-add">
+                                    <i class="fa-solid fa-plus fa-xl" style="color: #ffffff;"></i>
+                                </button>
+                            </div>
+                            <div class="object-name">
+                                <span>Block</span>
+                            </div>
+                            <div class="object-image">
+                                <img src="./assets/images/block.png" alt="block">
+                            </div>
+                            
+                            <div class="object-description">
+                                <span>4 cells</span>
+                            </div>
+
+                            <div class="object-cost">
+                                <div>
+                                    Cost
+                                </div>
+                                <div class="display-cost">
+                                    <span>1</span>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="border-left">
+                   
+                    <div class="btn-open">
+                        <button>
+                            <i class="fa-solid fa-chevron-right fa-2xl" style="color: #ffffff;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="container">
+                <div id="header">
+                    <div class="flex-1">
+                        <div class="btn btn-test">
+                            <button id="btn-test">
+                                <i class="fa-solid fa-vial fa-2xl"></i>
+                            </button>
+                            <span>Test</span>
+                        </div>
+                        <div class="btn btn-random">
+                            <button id="btn-challenge">
+                                <i class="fa-solid fa-medal fa-2xl"></i>
+                            </button>
+                            <span>Challenge</span>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="btn btn-details">
+                            <button id="btn-details">
+                                <i class="fa-solid fa-info fa-2xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="gameplay">
+
+                    <div id="container-canvas" class="container-canvas">
+                        <canvas id="canvas"></canvas>
+                        <!-- <span id="center-position"></span> -->
+                    </div>
+
+                    <div class="right-btn">
+                        <div class="div-btn btn-nav">
+                            <div class="nav-head">
+                                <div class="btn btn-nav-left-up">
+                                    <button id="btn-nav-left-up">
+                                        <i class="fa-solid fa-caret-left fa-2xl"></i>
+                                    </button>
+                                </div>
+                                <div class="btn btn-nav-up">
+                                    <button id="btn-nav-up">
+                                        <i class="fa-solid fa-caret-up fa-2xl"></i>
+                                    </button>
+                                </div>
+                                <div class="btn btn-nav-right-up">
+                                    <button id="btn-nav-right-up">
+                                        <i class="fa-solid fa-caret-up fa-2xl"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="nav-center">
+                                <div class="btn btn-nav-left">
+                                    <button id="btn-nav-left">
+                                        <i class="fa-solid fa-caret-left fa-2xl"></i>
+                                    </button>
+                                </div>
+                                <div class="btn btn-nav-center">
+                                    <button id="btn-nav-center">
+                                        <i class="fa-solid fa-dot-circle fa-2xl"></i>
+                                    </button>
+                                </div>
+                                <div class="btn btn-nav-right">
+                                    <button id="btn-nav-right">
+                                        <i class="fa-solid fa-caret-right fa-2xl"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="nav-foot">
+                                <div class="btn btn-nav-left-down">
+                                    <button id="btn-nav-left-down">
+                                        <i class="fa-solid fa-caret-left fa-2xl"></i>
+                                    </button>
+                                </div>
+                                <div class="btn btn-nav-down">
+                                    <button id="btn-nav-down">
+                                        <i class="fa-solid fa-caret-down fa-2xl"></i>
+                                    </button>
+                                </div>
+                                <div class="btn btn-nav-right-down">
+                                    <button id="btn-nav-right-down">
+                                        <i class="fa-solid fa-caret-down fa-2xl"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div-btn btn-zoom">
+                            <div class="btn btn-zoom-in">
+                                <button id="btn-zoom-in">
+                                    <i class="fa-solid fa-plus fa-2xl"></i>
+                                </button>
+                            </div>
+                            <div class="btn btn-zoom-out">
+                                <button id="btn-zoom-out">
+                                    <i class="fa-solid fa-minus fa-2xl"></i>
+                                </button>
+                            </div>
+                            <div class="btn btn-zoom-default">
+                                <button id="btn-zoom-reset">
+                                    <i class="fa-solid fa-undo fa-2xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-btn left-btn">
+                        <div class="btn btn-dice">
+                            <button id="btn-random">
+                                <i class="fa-solid fa-dice fa-2xl"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="div-btn center-btn">
+                        <div class="btn btn-left">
+                            <button id="btn-previous">
+                                <i class="fa-solid fa-angles-left fa-2xl" style="color: #ffffff;"></i>
+                            </button>
+                        </div>
+                        <div class="btn btn-play">
+                            <button id="btn-play">
+                                <i id="icon-play" class="fa-solid fa-play fa-2xl" style="color: #ffffff;"></i>
+                            </button>
+                        </div>
+                        <div class="btn btn-stop">
+                            <button id="btn-stop">
+                                <i id="icon-stop" class="fa-solid fa-stop fa-2xl" style="color: #ffffff;"></i>
+                            </button>
+                        </div>
+                        <div class="btn btn-reset">
+                            <button id="btn-reset">
+                                <i class="fa-solid fa-undo fa-2xl" style="color: #ffffff;"></i>
+                            </button>
+                        </div>
+                        <div class="btn btn-right">
+                            <button id="btn-next">
+                                <i class="fa-solid fa-angles-right fa-2xl" style="color: #ffffff;"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="div-btn top-right">
+                        <div class="timer">
+                            <div>Time :</div>
+                            <span id="display-time">0</span>
+                        </div>
+                        <div class="speed-display">
+                            <div class="speed">Speed</div>
+                            <div class="btn-group">
+                                <div class="btn btn-speed-less">
+                                    <button id="btn-speed-less">
+                                        <i class="fa-solid fa-caret-left fa-2xl" style="color: #ffffff;"></i>
+                                    </button>
+                                </div>
+                                <div class="speed-display">
+                                    <span id="display-speed">0</span>
+                                </div>
+                                <div class="btn btn-speed-more">
+                                    <button id="btn-speed-more">
+                                        <i class="fa-solid fa-caret-right fa-2xl" style="color: #ffffff;"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="div-btn top-left">
+                        <div class="btn btn-append">
+                            <button id="btn-drawer">
+                                <i class="fa-solid fa-pen-fancy fa-2xl"></i>
+                            </button>
+                        </div>
+                        <div class="btn btn-eraser">
+                            <button id="btn-eraser">
+                                <i class="fa-solid fa-eraser fa-2xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="footer">
+                    <div class="flex">
+                        <div class="btn-open">
+                            <button id="btn-open-footer">
+                                <i class="fa-solid fa-chevron-up fa-2xl" style="color: #ffffff;"></i>
+                            </button>
+                        </div>
+                        <h3>Settings</h3>
+                    </div>
+                    <div id="footer-content" >
+                        <div>
+                            <form>
+                                <table id="table-rows">
+                                    <h3>Map</h3>
+
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Rows</th>
+                                            <th>Cols</th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>
+                                            <span class="min">Min</span>
+                                        </td>
+                                        <td>
+                                            <span class="min">100</span>
+                                        </td>
+                                        <td>
+                                            <span class="min">100</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="max">Max</span>
+                                        </td>
+                                        <td>
+                                            <span class="max">100</span>
+                                        </td>
+                                        <td>
+                                            <span class="max">100</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="current">Current</span>
+                                        </td>
+                                        <td>
+                                            <input type="number" id="input-rows">
+                                        </td>
+                                        <td>
+                                            <input type="number" id="input-cols">
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                                <div>
+                                    <h3>Random</h3>
+                                    <table id="table-rand">
+                                        <!-- display random fonction input -->
+                                        <tr>
+                                            
+                                        </tr>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- importmap -->
+        <script type="importmap">
+            {
+                "imports": {
+                    "canvas": "./modules/canvas.js",
+                    "game": "./modules/game.js",
+                    "sidebar": "./modules/sidebar.js",
+                    "footer": "./modules/footer.js",
+                    "header": "./modules/header.js",
+                    "constants": "./modules/constants.js"
+                }
+            }
+        </script>
+        <script type="module" src="./index.js"></script>
+    </main>
+</body>
+</html>
