@@ -41,7 +41,7 @@ export class Canvas {
     drawGrid() {
         this.ctx.strokeStyle = COLOR.gray;
         
-        this.ctx.lineWidth = 1;
+        this.ctx.lineWidth = 0.5;
         for (let x = 0; x <= this.width; x += this.cellSize) {
 
             // if (x / (this.cellSize * 3)) this.ctx.strokeStyle = COLOR.secondary;
@@ -64,47 +64,56 @@ export class Canvas {
     drawCell(x, y) {
         //draw with stroke
         this.ctx.strokeStyle = COLOR.gray;
-        this.ctx.lineWidth = 1;
+        this.ctx.lineWidth = 0.5;
         this.ctx.strokeRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
-        //draw with fill
+        //draw cicle with fill
         this.ctx.fillStyle = COLOR.primary;
-        this.ctx.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+        this.ctx.beginPath();
+        this.ctx.arc(x * this.cellSize + this.cellSize / 2, y * this.cellSize + this.cellSize / 2, this.cellSize / 2, 0, 2 * Math.PI);
+        this.ctx.fill();
+        // this.ctx.fillStyle = COLOR.primary;
+        // this.ctx.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
     }
 
     drawCellWithColor(x, y, color) {
         //draw with stroke
-        this.ctx.strokeStyle = COLOR.gray;
-        this.ctx.lineWidth = 1;
-        this.ctx.strokeRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
-        //draw with fill
+        // this.ctx.strokeStyle = COLOR.gray;
+        // this.ctx.lineWidth = 0.5;
+        // this.ctx.strokeRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+        //draw circle with fill
         this.ctx.fillStyle = color;
-        this.ctx.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+        this.ctx.beginPath();
+        this.ctx.arc(x * this.cellSize + this.cellSize / 2, y * this.cellSize + this.cellSize / 2, this.cellSize / 2, 0, 2 * Math.PI);
+        this.ctx.fill();
+        // this.ctx.fillStyle = color;
+        // this.ctx.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
     }
 
-    drawCells(cells) {
+    drawCells(cells, c) {
         for (let cell of cells) {
-            let color = cell.alive ? COLOR.primary : '#000000';
+            let color = cell.alive ? c : '#000000';
             this.drawCellWithColor(cell.x, cell.y, color);
         }
     }
 
-    redraw(map) {
+    redraw(map, color) {
         this.init();
         for (let x = 0; x < map.length; x++) {
             for (let y = 0; y < map[x].length; y++) {
                 if (map[x][y]) {
-                    this.drawCell(y, x);
+                    if (color) this.drawCellWithColor(y, x, color);
+                    else this.drawCell(y, x);
                 }
             }
         }
     }
 
 
-    resize(width, height, cellSize, map) {
+    resize(width, height, cellSize, map, color) {
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
-        this.redraw(map);
+        this.redraw(map, color);
     }
 
 }

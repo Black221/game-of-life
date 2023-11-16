@@ -35,6 +35,10 @@ export class Mode {
         this.permissions = mode === 'test' ? this.testPermissions : this.challengePermissions
     }
 
+    getPermissions() {
+        return this.permissions
+    }
+
     setScores(scores){
         this.scores = scores
     }

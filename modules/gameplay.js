@@ -41,6 +41,15 @@ export class Gameplay {
         this.speedChangeInterval = null;
         this.navInterval = null;
 
+        this.colors = [
+            COLOR.primary,
+            "#00DFA2",
+            "#F6FA70",
+            "#FF0060"
+        ]
+
+        // get rand color
+        this.color = this.colors[1];
         this.initButton();
         this.zoomOut();
     }
@@ -62,7 +71,7 @@ export class Gameplay {
         this.interval = setInterval(() => {
 
             this.world.nextGeneration();
-            this.canvas.drawCells(this.world.getCellsChange());
+            this.canvas.drawCells(this.world.getCellsChange(), this.color);
             this.footer.setStats({
                 alive: this.world.getAlive(),
                 dead: this.world.getDead(),
@@ -86,13 +95,21 @@ export class Gameplay {
         this.count = 0;
         document.getElementById('display-time').innerHTML = this.count;
         this.world.init();
-        this.canvas.redraw(this.world.getWorld());
+        this.canvas.redraw(this.world.getWorld(), this.color);
+    }
+
+    onModechange() {
+        this.stop();
+        this.count = 0;
+        document.getElementById('display-time').innerHTML = this.count;
+        this.world.init();
+        this.canvas.redraw(this.world.getWorld(), this.color);
     }
 
     random() {
         this.stop();
         this.world.random();
-        this.canvas.redraw(this.world.getWorld());
+        this.canvas.redraw(this.world.getWorld(), this.color);
     }
 
     next() {
@@ -110,19 +127,19 @@ export class Gameplay {
     zoomIn() {
         // this.stop();
         this.dimension.zoomIn();
-        this.canvas.resize(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld());
+        this.canvas.resize(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld(), this.color);
     }
 
     zoomOut() {
         // this.stop();
         this.dimension.zoomOut();
-        this.canvas.resize(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld());
+        this.canvas.resize(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld(), this.color);
     }
 
     resetZoom() {
         // this.stop();
         this.dimension.reset();
-        this.canvas.resize(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld());
+        this.canvas.resize(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld(), this.color);
     }
 
 
@@ -195,7 +212,7 @@ export class Gameplay {
         else if (this.erasing)
             this.world.setCellToFalse(y, x);
         if (this.drawing || this.erasing)
-        this.canvas.drawCellWithColor(x, y, this.world.getWorld()[y][x] ? COLOR.primary : COLOR.black);
+        this.canvas.drawCellWithColor(x, y, this.world.getWorld()[y][x] ? this.color : COLOR.black);
     }
 
     toogleErase() {
@@ -237,8 +254,21 @@ export class Gameplay {
         }
     }
 
+    getNextColors() {
+        let index = this.colors.indexOf(this.color);
+        index = (index + 1) % this.colors.length;
+        this.color =  this.colors[index];
+    }
+
     initButton () {
 
+        //color button
+        this.colorButton = document.getElementById('btn-color');
+        this.colorButton.addEventListener('click', () => {
+            // get random color
+            this.getNextColors();
+            this.colorButton.style.backgroundColor = this.color;
+        });
         // get play button
         this.playButton = document.getElementById('btn-play');
         this.playButton.addEventListener('click', () => this.play());
@@ -465,7 +495,7 @@ export class Gameplay {
         let y = Math.floor(e.offsetY / this.dimension.cellSize);
 
         this.world.addObject(this.droppingObject.cells, x + 1, y + 1);
-        this.canvas.drawCells(this.world.getCellsChange());
+        this.canvas.drawCells(this.world.getCellsChange(), this.color);
 
         this.container.removeChild(document.getElementById("cursor-focus"));
         document.querySelector('.top-left').removeChild(document.getElementById("delete-button"));
