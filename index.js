@@ -15,14 +15,15 @@ let dimension = new Dimension(MIN_ROWS, MIN_COLS, DEFAULT_CELL_SIZE);
 let canvasElement = document.querySelector('#canvas');
 let canvas = new Canvas(canvasElement, dimension.width, dimension.height, dimension.cellSize);
 canvas.init();
+
 let dialog = new Dialog();
 
-
 let mode = new Mode();
-let footer = new Footer(dimension);
+let footer = new Footer();
 
 let gameplay = new Gameplay(canvas, dimension, mode, footer, dialog);
-new Sidebar(gameplay, STILL_LIFE);
-new Modal();
 
-new Header(mode, dialog);
+new Sidebar(gameplay, STILL_LIFE);
+new Header(gameplay, mode, dialog);
+
+new Modal();
