@@ -8,6 +8,12 @@ export class Dimension {
         this.cellSize = cellSize;
     }
 
+    // change(rows, cols, rand) {
+    //     this.rows = rows;
+    //     this.cols = cols;
+    //     this.cellSize = rand;
+    // }
+
     get width() {
         return this.cols * this.cellSize;
     }

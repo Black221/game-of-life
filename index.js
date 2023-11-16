@@ -19,10 +19,10 @@ let dialog = new Dialog();
 
 
 let mode = new Mode();
+let footer = new Footer(dimension);
 
-let gameplay = new Gameplay(canvas, dimension, mode);
+let gameplay = new Gameplay(canvas, dimension, mode, footer, dialog);
 new Sidebar(gameplay, STILL_LIFE);
-new Footer(gameplay, dimension);
 new Modal();
 
 new Header(mode, dialog);

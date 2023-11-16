@@ -15,6 +15,9 @@ export class World {
         this.maxPrevious = 15;
         this.newCells = [];
 
+        this.dead = 0;
+        this.born = 0;
+
         this.init();
     }
 
@@ -38,6 +41,22 @@ export class World {
     setWorld(world) {
         this.world = world;
     }
+
+    getAlive() {
+        let alive = 0;
+        for (let i = 0; i < this.rows; i++) {
+            let row = this.world[i];
+            for (let j = 0; j < this.cols; j++) {
+                let col = row[j];
+                if (col) {
+                    alive++;
+                }
+            }
+        }
+        return alive;
+    }
+
+
 
     addObject(matrix, x, y) {
         this.newCells = [];
@@ -85,8 +104,10 @@ export class World {
         }
         if (this.world[x][y]) {
             if (aliveNeighbours < 2 || aliveNeighbours > 3) {
+                this.dead++;
                 return false;
             }
+            this.born++;
             return true;
         } else {
             if (aliveNeighbours === 3) {
@@ -94,6 +115,18 @@ export class World {
             }
             return false;
         }
+    }
+
+    getDead() {
+        return this.dead;
+    }
+
+    getDeadFreq() {
+        return this.dead / (this.dead + this.born);
+    }
+
+    getBorn() {
+        return this.born;
     }
 
     nextGeneration() {
@@ -136,7 +169,8 @@ export class World {
         for (let i = 0; i < this.rows; i++) {
             this.world[i] = [];
             for (let j = 0; j < this.cols; j++) {
-                this.world[i][j] = Math.random() >= precision;
+                let ran = Math.random() >= precision
+                this.world[i][j] = ran;
             }
         }
     }

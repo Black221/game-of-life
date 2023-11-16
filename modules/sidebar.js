@@ -9,11 +9,30 @@ export class Sidebar {
     constructor(gameplay, stills) {
         this.gameplay = gameplay;
         this.stills = stills;
+
         this.isOpen = true;
 
         this.sidebar = document.getElementById('sidebar');
         this.sidebarContent = document.getElementById('sidebar-content');
         this.sidebarBtn = document.querySelector('#sidebar .btn-open');
+
+        this.selectCategory = document.querySelector('#categories');
+        this.selectCategory.addEventListener('change', (e) => {
+            let category = e.target.value;
+            this.objectRender.innerHTML = '';
+            if (category === 'all') {
+                this.render();
+            } else {
+                for (let i = 0; i < this.stills.length; i++) {
+                    let object = this.stills[i];
+                    if (object.category === category) {
+                        let objectElement = this.createObject(object);
+                        this.objectRender.appendChild(objectElement)
+                    }
+                }
+            }
+        });
+
 
         this.toggleSidebar();
         this.sidebarBtn.addEventListener('click', () => {
@@ -22,6 +41,8 @@ export class Sidebar {
         
         this.objectRender = document.getElementById('object-render');
         this.objectRender.innerHTML = '';
+
+
 
         this.render();
 

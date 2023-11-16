@@ -2,8 +2,8 @@ import { Setting } from "./setting.js";
 
 export class Footer {
 
-    constructor(gameplay) {
-        this.gameplay = gameplay;
+    constructor() {
+
         this.setting = new Setting();
         
         this.footer = document.getElementById('footer');
@@ -18,14 +18,10 @@ export class Footer {
         });
     }
 
-    setRows(rows) {
+    setStats(stats) {
+        this.setting.setStats(stats);
     }
 
-    setCols(cols) {
-    }
-
-    setCellSize(cellSize) {
-    }
 
 
 

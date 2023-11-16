@@ -5,13 +5,15 @@ import { Canvas } from "./canvas.js";
 export class Gameplay {
 
     constructor(
-        canvas, dimension, mode
+        canvas, dimension, mode, footer, dialog
     ) {
         this.canvas = canvas;
         this.dimension = dimension;
         this.world = new World(this.dimension.rows, this.dimension.cols);
 
         this.mode = mode;
+        this.footer = footer;
+        this.dialog = dialog;
         
         this.isPlaying = false;
         this.interval = null;
@@ -61,6 +63,13 @@ export class Gameplay {
 
             this.world.nextGeneration();
             this.canvas.drawCells(this.world.getCellsChange());
+            this.footer.setStats({
+                alive: this.world.getAlive(),
+                dead: this.world.getDead(),
+                born: this.world.getBorn(),
+                generation: this.count + 1,
+                deadFreq: this.world.getDeadFreq()
+            });
             this.count++;
 
             document.getElementById('display-time').innerHTML = this.count;
@@ -128,55 +137,6 @@ export class Gameplay {
             this.play();
         }
     }
-
-    // nextGeneration() {
-    //     let nextGeneration = [];
-    //     for (let i = 0; i < this.dimension.rows; i++) {
-    //         nextGeneration[i] = [];
-    //         for (let j = 0; j < this.dimension.cols; j++) {
-    //             nextGeneration[i][j] = this.checkNextCell(i, j);
-    //         }
-    //     }
-    //     return nextGeneration;
-    // }
-
-    // checkNextCell(x, y) {
-    //     let aliveNeighbours = 0;
-    //     for (let i = -1; i < 2; i++) {
-    //         if (x + i < 0 || x + i >= this.dimension.rows) {
-    //             continue;
-    //         }
-    //         for (let j = -1; j < 2; j++) {
-    //             if (y + j < 0 || y + j >= this.dimension.cols) {
-    //                 continue;
-    //             }
-    //             if (i === 0 && j === 0) {
-    //                 continue;
-    //             }
-    //             if (this.world.getWorld()[x + i][y + j]) {
-    //                 aliveNeighbours++;
-    //             }
-    //         }
-    //     }
-    //     if (this.world.getWorld()[x][y]) {
-    //         if (aliveNeighbours < 2 || aliveNeighbours > 3) {
-    //             return false;
-    //         }
-    //         return true;
-    //     } else {
-    //         if (aliveNeighbours === 3) {
-    //             return true;
-    //         }
-    //         return false;
-    //     }
-    // }
-
-    // setPreviousWorld(world) {
-    //     this.previousWorld.push(world);
-    //     if (this.previousWorld.length > this.maxPrevious) {
-    //         this.previousWorld.shift();
-    //     }
-    // }
 
 
     addEvent(element, event, callback) {
