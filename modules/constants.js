@@ -10,10 +10,15 @@ export const MIN_SPEED = 1;
 
 export const MIN_ROWS = 200;
 export const MAX_ROWS = 1000;
+export const DEFAULT_ROWS = 200;
     
 export const MIN_COLS = 320;
 export const MAX_COLS = 1000;
+export const DEFAULT_COLS = 320;
 
+export const MIN_RANDOM = 1;
+export const MAX_RANDOM = 100;
+export const DEFAULT_RANDOM = 20;
 
 
 export const COLOR = {

@@ -5,13 +5,24 @@ import { Sidebar } from "./modules/sidebar.js";
 import { Footer } from "./modules/footer.js";
 import { Gameplay } from "./modules/gameplay.js";
 import { STILL_LIFE } from './modules/lab.js';
+import { Modal } from "./modules/modal.js";
+import { Dialog } from "./modules/dialog.js";
+import { Mode } from "./modules/mode.js";
+import { Header } from "./modules/header.js";
 
 let dimension = new Dimension(MIN_ROWS, MIN_COLS, DEFAULT_CELL_SIZE);
 
 let canvasElement = document.querySelector('#canvas');
 let canvas = new Canvas(canvasElement, dimension.width, dimension.height, dimension.cellSize);
 canvas.init();
+let dialog = new Dialog();
 
-let gameplay = new Gameplay(canvas, dimension);
+
+let mode = new Mode();
+
+let gameplay = new Gameplay(canvas, dimension, mode);
 new Sidebar(gameplay, STILL_LIFE);
 new Footer(gameplay, dimension);
+new Modal();
+
+new Header(mode, dialog);

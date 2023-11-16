@@ -1,9 +1,10 @@
-
+import { Setting } from "./setting.js";
 
 export class Footer {
 
     constructor(gameplay) {
         this.gameplay = gameplay;
+        this.setting = new Setting();
         
         this.footer = document.getElementById('footer');
         this.footerBtn = document.querySelector('#btn-open-footer');

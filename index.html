@@ -12,9 +12,9 @@
 
         <div id="dialog">
             <div class="dialog-container">
-                <div class="title">Titre</div>
-                <div class="content">
-                    content
+                <div class="title"></div>
+                <div id="dialog-content">
+                    
                 </div>
                 <div class="dialog-footer">
                     <button id="btn-close-dialog">
@@ -35,9 +35,9 @@
                     <div class="modal-head">
                         <h3 class="title">Game of life</h3>
                         <h3>Challenger</h3>
-                        <div class="presentation">
+                        <div class="presentation flex-wrap">
                             <div class="div-img">
-                                <img src="./assets/logo.png" alt="logo">
+                                <img class="logo" src="./assets/logo.png" alt="logo">
                             </div>
                             <div class="bio">
                                 <table id="table-bio">
@@ -82,7 +82,7 @@
                                 and observing how it evolves. It is Turing complete and can simulate a universal constructor or any other Turing machine.
                             </p>
                             <h3>Rules</h3>
-                            <div class="div-img-rule">
+                            <div class="div-img-rule flex-wrap">
                                 <div class="div-img">
                                     <img class="img-rule" alt="rules 1">
                                 </div>
@@ -170,14 +170,14 @@
             <div id="container">
                 <div id="header">
                     <div class="flex-1">
-                        <div class="btn btn-test">
-                            <button id="btn-test">
+                        <div id="btn-test" class="btn btn-test">
+                            <button >
                                 <i class="fa-solid fa-vial fa-2xl"></i>
                             </button>
                             <span>Test</span>
                         </div>
-                        <div class="btn btn-random">
-                            <button id="btn-challenge">
+                        <div  id="btn-challenge" class="btn btn-random">
+                            <button>
                                 <i class="fa-solid fa-medal fa-2xl"></i>
                             </button>
                             <span>Challenge</span>
@@ -364,7 +364,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="footer-content" class="flex">
+                    <div id="footer-content" class="flex flex-wrap">
                         <div>
                             <form class="flex" id="setting-form">
                                 <div>
@@ -372,118 +372,64 @@
                                     <table id="table-rows">
                                         <thead>
                                             <tr>
-                                                <th></th>
-                                                <th>Rows</th>
-                                                <th>Cols</th>
+                                                <th>Params</th>
+                                                <th>Min</th>
+                                                <th>Max</th>
+                                                <th>Value</th>
                                             </tr>
                                         </thead>
                                         <tr>
+                                            <th>
+                                                <span>Rows</span>
+                                            </th>
                                             <td>
-                                                <span class="min">Min</span>
+                                                <span id="rows-min">100</span>
                                             </td>
                                             <td>
-                                                <span class="min">100</span>
-                                            </td>
-                                            <td>
-                                                <span class="min">100</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="max">Max</span>
-                                            </td>
-                                            <td>
-                                                <span class="max">100</span>
-                                            </td>
-                                            <td>
-                                                <span class="max">100</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span class="current">Current</span>
+                                                <span id="rows-max">100</span>
                                             </td>
                                             <td>
                                                 <input type="number" id="input-rows">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <span >Cols</span>
+                                            </th>
+                                            <td>
+                                                <span id="cols-min">100</span>
+                                            </td>
+                                            <td>
+                                                <span id="cols-max">100</span>
                                             </td>
                                             <td>
                                                 <input type="number" id="input-cols">
                                             </td>
                                         </tr>
-                                        
+                                        <tr>
+                                            <th>
+                                                <span >Random</span>
+                                            </th>
+                                            <td>
+                                                <span id="random-min">100</span>
+                                            </td>
+                                            <td>
+                                                <span id="random-max">100</span>
+                                            </td>
+                                            <td>
+                                                <input type="number" id="input-random">
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div>
-                                <div class="div-table">
-                                    <h3>Random</h3>
-                                    <div class="flex">
-                                        <table >
-                                            <thead>
-                                                <tr>
-                                                    <th>Options</th>
-                                                    <th>Max</th>
-                                                    <th>Value</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>frequence</td>
-                                                    <td id="max-frequence">0</td>
-                                                    <td><input type="number" id="frequence-input"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>oscillators</td>
-                                                    <td id="max-oscillators">0</td>
-                                                    <td><input type="number" id="oscillators-input"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>spaceships</td>
-                                                    <td id="max-spaceships">0</td>
-                                                    <td><input type="number" id="spaceships-input"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>still-lifes</td>
-                                                    <td id="max-still-lifes">0</td>
-                                                    <td><input type="number" id="still-lifes-input"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>guns</td>
-                                                    <td id="max-guns">0</td>
-                                                    <td><input type="number" id="guns-input"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Wicks</td>
-                                                    <td id="max-wicks">0</td>
-                                                    <td><input type="number" id="wicks-input"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Methuselahs</td>
-                                                    <td id="max-methuselahs">0</td>
-                                                    <td><input type="number" id="methuselahs-input"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>        
-                                    </div>                            
-                                    
-                                    
-                                </div>
+
                             </form>
                         </div>
                         <div>
                             <div class="div-stat">
                                 <h3>Statics</h3>
                                 <div >
-                                    <div class="stat-alive-group flex">
+                                    <div class="stat-group flex flex-wrap">
                                         <div class="stat stat-generation">
                                             <h4>Generation</h4>
                                             <span id="stat-generation">0</span>
@@ -496,8 +442,8 @@
                                             <h4>Born</h4>
                                             <span id="stat-born">0</span>
                                         </div>
-                                    </div>
-                                    <div class="stat-dead-group flex">
+                                    <!-- </div>
+                                    <div class="stat-dead-group flex"> -->
                                         <div class="stat stat-dead">
                                             <h4>Dead</h4>
                                             <span id="stat-dead">0</span>

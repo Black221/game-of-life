@@ -5,12 +5,14 @@ import { Canvas } from "./canvas.js";
 export class Gameplay {
 
     constructor(
-        canvas, dimension
+        canvas, dimension, mode
     ) {
         this.canvas = canvas;
         this.dimension = dimension;
         this.world = new World(this.dimension.rows, this.dimension.cols);
 
+        this.mode = mode;
+        
         this.isPlaying = false;
         this.interval = null;
 

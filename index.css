@@ -77,6 +77,7 @@ body {
     color: var(--color-text);
 }
 
+
 #header {
     display: flex;
 }
@@ -155,8 +156,20 @@ body {
     background: #000;
 }
 
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.logo {
+    max-width: 280px;
+}
+
+.div-img-rule > div {
+    margin: 10px  0;
+}
 #footer {
     width: 100%;
+    overflow-x: auto;
     max-height: var(--footer-height);
     padding: 10px;
     border-top: solid 1px var(--color-gray-dark);
@@ -695,4 +708,28 @@ th, td {
     border-radius: var(--dimension-border-radius);
     padding: 10px;
     z-index: 200;
+}
+
+.stat-group > div {
+    margin: 10px;
+}
+
+/* adatation pour portable */
+/* media */
+
+@media screen and (max-width: 480px) {
+
+    i {
+        font-size: 10px;
+    }
+
+    .right-btn {
+        bottom: 80px;
+        right: 0px;
+    }
+
+    .left-btn {
+        bottom: 100px;
+        left: 10px;
+    }
 }
