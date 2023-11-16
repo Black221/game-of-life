@@ -9,6 +9,106 @@
 </head>
 <body>
     <main>
+
+        <div id="dialog">
+            <div class="titre">Titre</div>
+            <div class="content">
+                content
+            </div>
+            <div class="dialog-footer">
+                <button id="btn-close-dialog">Close</button>
+            </div>
+        </div>
+
+        <div id="modal">
+            <div class="modal-container">
+                <div class="modal-div-btn">
+                    <button id="btn-close-modal">
+                        <i class="fa-solid fa-times fa-2xl"></i>
+                    </button>
+                </div>
+                <div>
+                    <div class="modal-head">
+                        <h3 class="title">Game of life</h3>
+                        <h3>Challenger</h3>
+                        <div class="presentation">
+                            <div class="div-img">
+                                <img src="./assets/logo.png" alt="logo">
+                            </div>
+                            <div class="bio">
+                                <table id="table-bio">
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>: Le Hackeur Souriant (LHackSRT)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nationality</td>
+                                        <td>: Senegalaise</td>
+                                    </tr>
+                                    <tr>
+                                        <td>School</td>
+                                        <td>: ESP</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Formation</td>
+                                        <td>: Genie Logiciel</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Formation level</td>
+                                        <td>: DIC 2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Year</td>
+                                        <td>: 2023-2024</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa-brands fa-github fa-2xl"></i>
+                                        </td>
+                                        <td>: <a href="https://github.com/Black221/game-of-life/" class="label type-1">LHackSRT</a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-info">
+                            <h3>Presentation</h3>
+                            <p>
+                                The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970. It is a zero-player game, 
+                                meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Game of Life by creating an initial configuration
+                                and observing how it evolves. It is Turing complete and can simulate a universal constructor or any other Turing machine.
+                            </p>
+                            <h3>Rules</h3>
+                            <div class="div-img-rule">
+                                <div class="div-img">
+                                    <img class="img-rule" alt="rules 1">
+                                </div>
+                                <div class="div-img">
+                                    <img class="img-rule" alt="rules 2">
+                                </div>
+                                <div class="div-img">
+                                    <img class="img-rule" alt="rules 3">
+                                </div>
+                            </div>
+                            <p>
+                                1- The dead cell becomes alive if it has exactly three live neighbours.<br />
+                                2- The live cell remains alive if it has two or three live neighbours.<br />
+                                3- In all other cases, the cell dies or remains dead.<br />
+                            </p>
+                            <h3>References</h3>
+                            <table>
+                                <tr>
+                                    <td>link 1</td>
+                                    <td><a href="https://conwaylife.com/wiki">life wiki</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <div id="main-container">
             <div id="sidebar">
                 
@@ -36,7 +136,7 @@
                                 <span>Block</span>
                             </div>
                             <div class="object-image">
-                                <img src="./assets/images/block.png" alt="block">
+                                <img src="./assets/block.png" alt="block">
                             </div>
                             
                             <div class="object-description">
@@ -251,69 +351,160 @@
                                 <i class="fa-solid fa-chevron-up fa-2xl" style="color: #ffffff;"></i>
                             </button>
                         </div>
-                        <h3>Settings</h3>
-                    </div>
-                    <div id="footer-content" >
+                        <h3 class="flex-1">Settings</h3>
                         <div>
-                            <form>
-                                <table id="table-rows">
-                                    <h3>Map</h3>
-
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Rows</th>
-                                            <th>Cols</th>
-                                        </tr>
-                                    </thead>
-                                    <tr>
-                                        <td>
-                                            <span class="min">Min</span>
-                                        </td>
-                                        <td>
-                                            <span class="min">100</span>
-                                        </td>
-                                        <td>
-                                            <span class="min">100</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="max">Max</span>
-                                        </td>
-                                        <td>
-                                            <span class="max">100</span>
-                                        </td>
-                                        <td>
-                                            <span class="max">100</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="current">Current</span>
-                                        </td>
-                                        <td>
-                                            <input type="number" id="input-rows">
-                                        </td>
-                                        <td>
-                                            <input type="number" id="input-cols">
-                                        </td>
-                                    </tr>
-                                    
-                                </table>
+                            <div class="btn btn-save">
+                                <button id="btn-save">
+                                    <i class="fa-solid fa-save fa-2xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="footer-content" class="flex">
+                        <div>
+                            <form class="flex" id="setting-form">
                                 <div>
-                                    <h3>Random</h3>
-                                    <table id="table-rand">
-                                        <!-- display random fonction input -->
+                                    <h3>Map</h3>
+                                    <table id="table-rows">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Rows</th>
+                                                <th>Cols</th>
+                                            </tr>
+                                        </thead>
                                         <tr>
-                                            
+                                            <td>
+                                                <span class="min">Min</span>
+                                            </td>
+                                            <td>
+                                                <span class="min">100</span>
+                                            </td>
+                                            <td>
+                                                <span class="min">100</span>
+                                            </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="max">Max</span>
+                                            </td>
+                                            <td>
+                                                <span class="max">100</span>
+                                            </td>
+                                            <td>
+                                                <span class="max">100</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="current">Current</span>
+                                            </td>
+                                            <td>
+                                                <input type="number" id="input-rows">
+                                            </td>
+                                            <td>
+                                                <input type="number" id="input-cols">
+                                            </td>
+                                        </tr>
+                                        
                                     </table>
+                                </div>
+                                <div class="div-table">
+                                    <h3>Random</h3>
+                                    <div class="flex">
+                                        <table >
+                                            <thead>
+                                                <tr>
+                                                    <th>Options</th>
+                                                    <th>Max</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>frequence</td>
+                                                    <td id="max-frequence">0</td>
+                                                    <td><input type="number" id="frequence-input"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>oscillators</td>
+                                                    <td id="max-oscillators">0</td>
+                                                    <td><input type="number" id="oscillators-input"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>spaceships</td>
+                                                    <td id="max-spaceships">0</td>
+                                                    <td><input type="number" id="spaceships-input"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>still-lifes</td>
+                                                    <td id="max-still-lifes">0</td>
+                                                    <td><input type="number" id="still-lifes-input"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>guns</td>
+                                                    <td id="max-guns">0</td>
+                                                    <td><input type="number" id="guns-input"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Wicks</td>
+                                                    <td id="max-wicks">0</td>
+                                                    <td><input type="number" id="wicks-input"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Methuselahs</td>
+                                                    <td id="max-methuselahs">0</td>
+                                                    <td><input type="number" id="methuselahs-input"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>        
+                                    </div>                            
+                                    
+                                    
                                 </div>
                             </form>
                         </div>
                         <div>
-
+                            <div class="div-stat">
+                                <h3>Statics</h3>
+                                <div >
+                                    <div class="stat-alive-group flex">
+                                        <div class="stat stat-generation">
+                                            <h4>Generation</h4>
+                                            <span id="stat-generation">0</span>
+                                        </div>
+                                        <div class="stat stat-alive">
+                                            <h4>Alive</h4>
+                                            <span id="stat-alive">0</span>
+                                        </div>
+                                        <div class="stat stat-born">
+                                            <h4>Born</h4>
+                                            <span id="stat-born">0</span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-dead-group flex">
+                                        <div class="stat stat-dead">
+                                            <h4>Dead</h4>
+                                            <span id="stat-dead">0</span>
+                                        </div>
+                                        <div class="stat stat dead-frequence">
+                                            <h4>Dead frequence</h4>
+                                            <span id="stat-dead-frequence">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
