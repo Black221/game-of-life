@@ -581,7 +581,7 @@ th, td {
 
 
 
-#modal {
+#modal, #dialog {
     background: rgba(71, 69, 69, 0.863);
 
     position: absolute;
@@ -658,4 +658,41 @@ th, td {
     text-align: justify;
     text-justify: justify;
     padding: 20px;
+}
+
+.dialog-container{
+    padding : 60px;
+    position: relative;
+    background: white;
+    border-radius: var(--dimension-border-radius);
+    overflow-y: auto;
+    z-index: 1000;
+    text-align: center;
+}
+
+.dialog-container > div {
+    margin: 10px 0;
+}
+
+.dialog-container .title {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0px 10px;
+    height: 40px;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#btn-close-dialog {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    background-color: var(--color-primary);
+    border-radius: var(--dimension-border-radius);
+    padding: 10px;
+    z-index: 200;
 }
