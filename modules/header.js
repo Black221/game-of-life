@@ -19,7 +19,7 @@ export class Header {
                 'You are now in test mode.'
             );
             
-            this.gameplay.onModechange();
+            // this.gameplay.onModechange();
         });
 
         this.challengeBtn.addEventListener('click', () => {
