@@ -118,5 +118,6 @@ export class Sidebar {
     
     getElement(obj) {
         this.gameplay.addObject(obj);
+        this.toggleSidebar();
     }
 }
