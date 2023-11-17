@@ -778,11 +778,13 @@ th, td {
         font-size: 10px;
     }
 
+    #header > div > div {
+        margin: 0 4px;
+        padding: 8px;
+    }
 
-
-
-    #btn-challenge {
-        display: none;
+    #header > div > div > button {
+        padding: 0px;
     }
 }
 
