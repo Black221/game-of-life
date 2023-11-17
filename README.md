@@ -22,12 +22,18 @@ git clone https://github.com/Black221/game-of-life
 ```
 
 ## Usage
-You can open it just with your navigator
+You can open it just with your navigator by selecting the index.html file
 
 
 
 ### Fonctionnalities
 
+In this version you can:
+-  add tiles with longpress on board
+-  delete tiles by longpress on baord
+-  add some common tiles with filter on the sidebar
+-  get statics on the bottom bar
+-  do some challenge by selecting the challenge mode on the header
 
 
 ## Contributing
