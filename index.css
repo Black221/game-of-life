@@ -740,20 +740,49 @@ th, td {
 /* adatation pour portable */
 /* media */
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 460px) {
 
     i {
         font-size: 10px;
     }
 
-    .right-btn {
-        bottom: 80px;
-        right: 0px;
+    .right-btn, .top-left  {
+        flex-direction: column;
     }
 
-    .left-btn {
-        bottom: 100px;
-        left: 10px;
+    .right-btn > div, .top-left > div {
+        margin: 4px 0;
+    }
+
+    .left-btn, .right-btn {
+        bottom: 80px;
+    }
+
+    .btn-zoom > div {
+        margin: 4px 0;
+    }
+
+    .left-btn, .top-left {
+        left: 4px;
+    }
+
+    .right-btn, .top-right {
+        right: 4px;
+    }
+
+    .center-btn {
+        bottom: 10px;
+    }
+
+    button {
+        font-size: 10px;
+    }
+
+
+
+
+    #btn-challenge {
+        display: none;
     }
 }
 
