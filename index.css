@@ -191,7 +191,6 @@ body {
 
 .btn-open {
     padding: 8px;
-    font-size: 20px;
     background: var(--color-primary);
     border-radius: var(--dimension-border-radius);
     width: fit-content;
@@ -540,7 +539,6 @@ body {
 #footer-content {
     align-items: flex-start;
     justify-content: flex-start;
-    padding-top: 10px;
 }
 
 #setting-form {
@@ -721,7 +719,6 @@ th, td {
 }
 
 #footer-content {
-    padding: 10px;
     border-radius: var(--dimension-border-radius);
 }
 
@@ -792,6 +789,17 @@ th, td {
     #header > div > div > button {
         padding: 0px;
     }
+
+    .btn-open {
+        padding: 6px;
+        font-size: 10px;
+    }
+
+    .btn-open > button {
+        font-size: 10px;
+    }
+
+
 }
 
 #btn-close-modal {
