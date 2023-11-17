@@ -59,7 +59,7 @@ canvas:active {
     --sidebar-width: 360px;
 
     /* footer-height */
-    --footer-height: 360px;
+    --footer-height: 180px;
 
     /* header-height */
     --header-height: 60px;
@@ -213,7 +213,7 @@ body {
     position: absolute;
 }
 
-.center-btn, .right-btn, .left-btn {
+.center-btn, .right-btn {
     padding: 10px;
     position: absolute;
     border-radius: var(--dimension-border-radius);
@@ -222,13 +222,14 @@ body {
     z-index: 200;
 }
 
+
 .center-btn {
     bottom: 32px;
     display: flex;
     align-items: center;
 }
 
-.center-btn > div {
+.center-btn > div > button {
     margin: 10px;
 }
 
@@ -242,32 +243,29 @@ body {
     bottom: 32px;
     background: transparent;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .right-btn > div {
     margin: 0 10px;
 }
 
-.btn-zoom, .btn-save {
-    background: var(--color-primary);
+.btn-zoom > div > button, .btn-save {
     padding: 10px;
-    border-radius: var(--dimension-border-radius);
 }
 
-.left-btn {
-    left: 20px;
-    bottom: 32px;
+.btn-zoom {
+    border-radius: var(--dimension-border-radius);
+    background: var(--color-primary);
 }
+
+
 
 .btn > button {
     color: white;
 }
 
-.btn-dice > button {
-    width: 40px;
-    height: 40px;
-}
+
 
 .top-right  {
     position: absolute;
@@ -468,16 +466,26 @@ body {
     margin: 0 10px;
 }
 
-.top-left > div > button {
+.left-btn > div {
+    margin: 20px 0 0 0;
+}
+
+.top-left > div > button, .left-btn > div > button {
     background: var(--color-primary);
     color: white;
     border-radius: var(--dimension-border-radius);
     padding: 15px;
 }
 
-.top-left > div > button:hover {
+.top-left > div > button:hover, .left-btn > div > button:hover {
     background: var(--color-primary-dark);
     cursor: pointer;
+}
+
+.left-btn {
+    position: absolute;
+    left: 20px;
+    bottom: 32px;
 }
 
 .div-btn {
@@ -496,12 +504,11 @@ body {
     text-align: center;
 }
 
-.nav-head > div, .nav-center > div, .nav-foot > div {
+.nav-head > div > button, .nav-center > div > button, .nav-foot > div > button {
     margin: 4px 4px;
     width: 32px;
     height: 32px;
     /* center the text */
-    color: var(--color-text);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -713,6 +720,23 @@ th, td {
     margin: 10px;
 }
 
+#footer-content {
+    padding: 10px;
+    border-radius: var(--dimension-border-radius);
+}
+
+.div-stat {
+    width: 100%;
+}
+
+.stat-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
 /* adatation pour portable */
 /* media */
 
@@ -742,4 +766,8 @@ th, td {
     border-radius: var(--dimension-border-radius);
     padding: 10px;
     z-index: 200;
+}
+
+#btn-multi-color {
+    background-image: linear-gradient(to right top, #1a73e8, #009dff, #00beef, #00d9c3, #58ed92, #9de669, #d1db4c, #ffcc45, #ffa836, #ff7f3b, #ff514b, #ff0060);
 }

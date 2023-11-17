@@ -26,7 +26,7 @@ export class Footer {
 
 
     toggleFooter() {
-        this.footerContent.style.height = this.isOpen ? '0px' : '480px';
+        this.footerContent.style.height = this.isOpen ? '0px' : '280px';
         this.footerContent.style.overflow = this.isOpen ? 'hidden' : 'auto';
         this.footerBtn.innerHTML = this.isOpen ? '<i class="fa-solid fa-chevron-up fa-xl" style="color: #fff"></i>' : '<i class="fa-solid fa-chevron-down fa-xl" style="color: #fff"></i>';
         this.isOpen = !this.isOpen;

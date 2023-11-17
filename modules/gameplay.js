@@ -18,6 +18,9 @@ export class Gameplay {
         this.isPlaying = false;
         this.interval = null;
 
+        this.multiColor = false;
+        this.autoAdd = false;
+
         this.speed = MAX_SPEED / 4;
         document.getElementById('display-speed').innerHTML = this.speed;
         this.count = 0;
@@ -72,6 +75,12 @@ export class Gameplay {
 
             this.world.nextGeneration();
             this.canvas.drawCells(this.world.getCellsChange(), this.color);
+
+            // if (this.autoAdd && this.count % 50 === 0) {
+            //     this.world.random(0.95);
+            //     this.canvas.drawCells(this.world.getCellsChange(), this.color);
+            // }
+
             this.footer.setStats({
                 alive: this.world.getAlive(),
                 dead: this.world.getDead(),
@@ -80,6 +89,8 @@ export class Gameplay {
                 deadFreq: this.world.getDeadFreq()
             });
             this.count++;
+            if (this.count % 25 === 0 && this.multiColor)
+                this.getNextColors();
 
             document.getElementById('display-time').innerHTML = this.count;
         }, 2500 / this.speed);
@@ -259,16 +270,41 @@ export class Gameplay {
         let index = this.colors.indexOf(this.color);
         index = (index + 1) % this.colors.length;
         this.color =  this.colors[index];
+        this.colorButton.style.backgroundColor = this.color;
     }
 
     initButton () {
+
+        // auto add button
+        // this.autoAddButton = document.getElementById('btn-auto-random');
+        // this.autoAddButton.addEventListener('click', () => {
+        //     console.log(this.autoAdd)
+        //     if (this.autoAdd) {
+        //         this.autoAdd = false;
+        //         this.autoAddButton.background = COLOR.primary;
+        //     } else {
+        //         this.autoAdd = true;
+        //         this.autoAddButton.background = 'rgb(0, 255, 0)';
+        //     }
+        // });
+
+        // random color button
+        this.randomColorButton = document.getElementById('btn-multi-color');
+        this.randomColorButton.addEventListener('click', () => {
+            if (this.multiColor) {
+                this.multiColor = false;
+                this.randomColorButton.style.border = 'none';
+            } else {
+                this.multiColor = true;
+                this.randomColorButton.style.border = '2px solid #ffffff';
+            }
+        });
 
         //color button
         this.colorButton = document.getElementById('btn-color');
         this.colorButton.addEventListener('click', () => {
             // get random color
             this.getNextColors();
-            this.colorButton.style.backgroundColor = this.color;
         });
         // get play button
         this.playButton = document.getElementById('btn-play');
