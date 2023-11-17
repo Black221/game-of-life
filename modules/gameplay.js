@@ -108,7 +108,7 @@ export class Gameplay {
     }
 
     random() {
-        this.stop();
+        this.reset();
         this.world.random();
         this.canvas.redraw(this.world.getWorld(), this.color);
     }
