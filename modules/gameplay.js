@@ -178,13 +178,13 @@ export class Gameplay {
 
     addEvent(element, event, callback) {
         element.addEventListener(event, (e) => {
-            this.editIterval = setInterval(() => callback(e), 100);
+            this.editIterval = setInterval(() => callback(e), 175);
         }, false);
     }
 
     removeEvent(element, event, callback) {
         element.removeEventListener(event, (e) => {
-            this.editIterval = setInterval(() => callback(e), 100);
+            this.editIterval = setInterval(() => callback(e), 175);
         }, false);
     }
 
@@ -223,19 +223,6 @@ export class Gameplay {
             });
         });
 
-        // this.canvas.canvas.addEventListener('pointerdown', () => {
-            
-        //     this.canEdit = true;
-        //     this.canvas.canvas.addEventListener('pointermove', (e) => {
-        //         if (this.canEdit)
-        //             this.editInterval = setInterval(this.edit(e), 50);
-        //     });
-
-        //     this.canvas.canvas.addEventListener('pointerup', () => {
-        //         this.canEdit = false;
-        //         clearInterval(this.editInterval);
-        //     });
-        // });
     }
 
     edit(e) {
@@ -267,18 +254,6 @@ export class Gameplay {
             });
         });
 
-        // this.canvas.canvas.addEventListener('pointerdown', () => {
-        //     this.canEdit = true;
-        //     this.canvas.canvas.addEventListener('pointermove', (e) => {
-        //         if (this.canEdit)
-        //             this.editInterval = setInterval(this.edit(e), 50);
-        //     });
-
-        //     this.canvas.canvas.addEventListener('pointerup', () => {
-        //         this.canEdit = false;
-        //         clearInterval(this.editInterval);
-        //     });
-        // });
     }
 
 
@@ -365,7 +340,7 @@ export class Gameplay {
         // get zoom in button
         this.zoomInButton = document.getElementById('btn-zoom-in');
         this.zoomInButton.addEventListener(this.event+'down', () => {
-            this.zoomChangeInterval = setInterval(() => this.zoomIn(), 100);
+            this.zoomChangeInterval = setInterval(() => this.zoomIn(), 175);
 
             this.zoomInButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.zoomChangeInterval);
@@ -376,22 +351,11 @@ export class Gameplay {
             });
         });
 
-        // this.zoomInButton.addEventListener('pointerdown', () => {
-        //     this.zoomChangeInterval = setInterval(() => this.zoomIn(), 100);
-
-        //     this.zoomInButton.addEventListener('pointerup', () => {
-        //         clearInterval(this.zoomChangeInterval);
-        //     });
-
-        //     this.zoomInButton.addEventListener('pointerleave', () => {
-        //         clearInterval(this.zoomChangeInterval);
-        //     });
-        // });
 
         // get zoom out button
         this.zoomOutButton = document.getElementById('btn-zoom-out');   
         this.zoomOutButton.addEventListener(this.event+'down', () => {
-            this.zoomChangeInterval = setInterval(() => this.zoomOut(), 100);
+            this.zoomChangeInterval = setInterval(() => this.zoomOut(), 175);
 
             this.zoomOutButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.zoomChangeInterval);
@@ -402,17 +366,6 @@ export class Gameplay {
             });
         });
 
-        // this.zoomOutButton.addEventListener('pointerdown', () => {
-        //     this.zoomChangeInterval = setInterval(() => this.zoomOut(), 100);
-
-        //     this.zoomOutButton.addEventListener('pointerup', () => {
-        //         clearInterval(this.zoomChangeInterval);
-        //     });
-
-        //     this.zoomOutButton.addEventListener('pointerleave', () => {
-        //         clearInterval(this.zoomChangeInterval);
-        //     });
-        // });
 
         // get reset zoom button
         this.resetZoomButton = document.getElementById('btn-zoom-reset');
@@ -421,7 +374,7 @@ export class Gameplay {
         // get speed input
         this.speedlessButton = document.getElementById('btn-speed-less');
         this.speedlessButton.addEventListener(this.event+'down', () => {
-            this.speedChangeInterval = setInterval(() => this.changeSpeed(-5), 100);
+            this.speedChangeInterval = setInterval(() => this.changeSpeed(-5), 175);
 
             this.speedlessButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.speedChangeInterval);
@@ -432,21 +385,10 @@ export class Gameplay {
             });
         });
 
-        // this.speedlessButton.addEventListener('pointerdown', () => {
-        //     this.speedChangeInterval = setInterval(() => this.changeSpeed(-5), 100);
-
-        //     this.speedlessButton.addEventListener('pointerup', () => {
-        //         clearInterval(this.speedChangeInterval);
-        //     });
-
-        //     this.speedlessButton.addEventListener('pointerleave', () => {
-        //         clearInterval(this.speedChangeInterval);
-        //     });
-        // });
 
         this.speedmoreButton = document.getElementById('btn-speed-more');
         this.speedmoreButton.addEventListener(this.event+'down', () => {
-            this.speedChangeInterval = setInterval(() => this.changeSpeed(5), 100);
+            this.speedChangeInterval = setInterval(() => this.changeSpeed(5), 175);
 
             this.speedmoreButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.speedChangeInterval);
@@ -457,17 +399,6 @@ export class Gameplay {
             });
         });
 
-        // this.speedmoreButton.addEventListener('pointerdown', () => {
-        //     this.speedChangeInterval = setInterval(() => this.changeSpeed(5), 100);
-
-        //     this.speedmoreButton.addEventListener('pointerup', () => {
-        //         clearInterval(this.speedChangeInterval);
-        //     });
-
-        //     this.speedmoreButton.addEventListener('pointerleave', () => {
-        //         clearInterval(this.speedChangeInterval);
-        //     });
-        // });
 
         //get button drawer
         this.drawerButton = document.getElementById('btn-drawer');
@@ -485,7 +416,7 @@ export class Gameplay {
         //get button nav-up
         this.navUpButton = document.getElementById('btn-nav-up');
         this.navUpButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(0, 1), 100);
+            this.navInterval = setInterval(() => this.moveTo(0, 1), 175);
 
             this.navUpButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
@@ -496,22 +427,11 @@ export class Gameplay {
             })
         });
 
-        // this.navUpButton.addEventListener('pointerdown', () => {
-        //     this.navInterval = setInterval(() => this.moveTo(0, 1), 100);
-
-        //     this.navUpButton.addEventListener('pointerup', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-
-        //     this.navUpButton.addEventListener('pointerleave', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-        // });
 
         //get button nav-down
         this.navDownButton = document.getElementById('btn-nav-down');
         this.navDownButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(0, -1), 100)
+            this.navInterval = setInterval(() => this.moveTo(0, -1), 175)
 
             this.navDownButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
@@ -522,22 +442,11 @@ export class Gameplay {
             })
         });
 
-        // this.navDownButton.addEventListener('pointerdown', () => {
-        //     this.navInterval = setInterval(() => this.moveTo(0, -1), 100)
-
-        //     this.navDownButton.addEventListener('pointerup', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-
-        //     this.navDownButton.addEventListener('pointerleave', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-        // });
 
         //get button nav-left
         this.navLeftButton = document.getElementById('btn-nav-left');
         this.navLeftButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(1, 0), 100)
+            this.navInterval = setInterval(() => this.moveTo(1, 0), 175)
 
             this.navLeftButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
@@ -548,22 +457,11 @@ export class Gameplay {
             })
         });
 
-        // this.navLeftButton.addEventListener('pointerdown', () => {
-        //     this.navInterval = setInterval(() => this.moveTo(1, 0), 100)
-
-        //     this.navLeftButton.addEventListener('pointerup', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-
-        //     this.navLeftButton.addEventListener('pointerleave', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-        // });
 
         //get button nav-right
         this.navRightButton = document.getElementById('btn-nav-right');
         this.navRightButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(-1, 0), 100)
+            this.navInterval = setInterval(() => this.moveTo(-1, 0), 175)
 
             this.navRightButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
@@ -574,22 +472,11 @@ export class Gameplay {
             })
         });
 
-        // this.navRightButton.addEventListener('pointerdown', () => {
-        //     this.navInterval = setInterval(() => this.moveTo(-1, 0), 100)
-
-        //     this.navRightButton.addEventListener('pointerup', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-
-        //     this.navRightButton.addEventListener('pointerleave', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-        // });
 
         //get button nav-left-up
         this.navLeftUpButton = document.getElementById('btn-nav-left-up');
         this.navLeftUpButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(1, 1), 100)
+            this.navInterval = setInterval(() => this.moveTo(1, 1), 175)
 
             this.navLeftUpButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
@@ -600,22 +487,11 @@ export class Gameplay {
             })
         });
 
-        // this.navLeftUpButton.addEventListener('pointerdown', () => {
-        //     this.navInterval = setInterval(() => this.moveTo(1, 1), 100)
-
-        //     this.navLeftUpButton.addEventListener('pointerup', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-
-        //     this.navLeftUpButton.addEventListener('pointerleave', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-        // });
 
         //get button nav-right-up
         this.navRightUpButton = document.getElementById('btn-nav-right-up');
         this.navRightUpButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(-1, 1), 100)
+            this.navInterval = setInterval(() => this.moveTo(-1, 1), 175)
 
             this.navRightUpButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
@@ -626,22 +502,11 @@ export class Gameplay {
             })
         });
 
-        // this.navRightUpButton.addEventListener('pointerdown', () => {
-        //     this.navInterval = setInterval(() => this.moveTo(-1, 1), 100)
-
-        //     this.navRightUpButton.addEventListener('pointerup', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-
-        //     this.navRightUpButton.addEventListener('pointerleave', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-        // });
 
         //get button nav-left-down
         this.navLeftDownButton = document.getElementById('btn-nav-left-down');
         this.navLeftDownButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(1, -1), 100)
+            this.navInterval = setInterval(() => this.moveTo(1, -1), 175)
 
             this.navLeftDownButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
@@ -652,22 +517,11 @@ export class Gameplay {
             })
         });
 
-        // this.navLeftDownButton.addEventListener('pointerdown', () => {
-        //     this.navInterval = setInterval(() => this.moveTo(1, -1), 100)
-
-        //     this.navLeftDownButton.addEventListener('pointerup', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-
-        //     this.navLeftDownButton.addEventListener('pointerleave', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-        // });
 
         //get button nav-right-down
         this.navRightDownButton = document.getElementById('btn-nav-right-down');
         this.navRightDownButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(-1, -1), 100)
+            this.navInterval = setInterval(() => this.moveTo(-1, -1), 175)
 
             this.navRightDownButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
@@ -678,17 +532,6 @@ export class Gameplay {
             })
         });
 
-        // this.navRightDownButton.addEventListener('pointerdown', () => {
-        //     this.navInterval = setInterval(() => this.moveTo(-1, -1), 100)
-
-        //     this.navRightDownButton.addEventListener('pointerup', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-
-        //     this.navRightDownButton.addEventListener('pointerleave', () => {
-        //         clearInterval(this.navInterval)
-        //     })
-        // });
 
         //get button btn-nav-center
         this.navCenterButton = document.getElementById('btn-nav-center');
