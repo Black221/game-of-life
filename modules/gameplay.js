@@ -5,7 +5,7 @@ import { Canvas } from "./canvas.js";
 export class Gameplay {
 
     constructor(
-        canvas, dimension, mode, footer, dialog
+        canvas, dimension, mode, footer, dialog, mobile
     ) {
         this.canvas = canvas;
         this.dimension = dimension;
@@ -14,6 +14,8 @@ export class Gameplay {
         this.mode = mode;
         this.footer = footer;
         this.dialog = dialog;
+
+        this.mobile = mobile;
         
         this.isPlaying = false;
         this.interval = null;
@@ -53,6 +55,12 @@ export class Gameplay {
 
         // get rand color
         this.color = this.colors[1];
+        this.event = 'mouse'
+        if (this.mobile)
+            this.event = 'pointer'
+        else
+            this.event = 'mouse'
+
         this.initButton();
         this.zoomOut();
     }
@@ -201,33 +209,33 @@ export class Gameplay {
         if (!this.drawing)
             return;
 
-        this.canvas.canvas.addEventListener('mousedown', () => {
+        this.canvas.canvas.addEventListener(this.event+'down', () => {
             
             this.canEdit = true;
-            this.canvas.canvas.addEventListener('mousemove', (e) => {
+            this.canvas.canvas.addEventListener(this.event+'move', (e) => {
                 if (this.canEdit)
                     this.editInterval = setInterval(this.edit(e), 50);
             });
 
-            this.canvas.canvas.addEventListener('mouseup', () => {
+            this.canvas.canvas.addEventListener(this.event+'up', () => {
                 this.canEdit = false;
                 clearInterval(this.editInterval);
             });
         });
 
-        this.canvas.canvas.addEventListener('pointerdown', () => {
+        // this.canvas.canvas.addEventListener('pointerdown', () => {
             
-            this.canEdit = true;
-            this.canvas.canvas.addEventListener('pointermove', (e) => {
-                if (this.canEdit)
-                    this.editInterval = setInterval(this.edit(e), 50);
-            });
+        //     this.canEdit = true;
+        //     this.canvas.canvas.addEventListener('pointermove', (e) => {
+        //         if (this.canEdit)
+        //             this.editInterval = setInterval(this.edit(e), 50);
+        //     });
 
-            this.canvas.canvas.addEventListener('pointerup', () => {
-                this.canEdit = false;
-                clearInterval(this.editInterval);
-            });
-        });
+        //     this.canvas.canvas.addEventListener('pointerup', () => {
+        //         this.canEdit = false;
+        //         clearInterval(this.editInterval);
+        //     });
+        // });
     }
 
     edit(e) {
@@ -246,31 +254,31 @@ export class Gameplay {
         if (!this.erasing)
             return;
 
-        this.canvas.canvas.addEventListener('mousedown', () => {
+        this.canvas.canvas.addEventListener(this.event+'down', () => {
             this.canEdit = true;
-            this.canvas.canvas.addEventListener('mousemove', (e) => {
+            this.canvas.canvas.addEventListener(this.event+'move', (e) => {
                 if (this.canEdit)
                     this.editInterval = setInterval(this.edit(e), 50);
             });
 
-            this.canvas.canvas.addEventListener('mouseup', () => {
+            this.canvas.canvas.addEventListener(this.event+'up', () => {
                 this.canEdit = false;
                 clearInterval(this.editInterval);
             });
         });
 
-        this.canvas.canvas.addEventListener('pointerdown', () => {
-            this.canEdit = true;
-            this.canvas.canvas.addEventListener('pointermove', (e) => {
-                if (this.canEdit)
-                    this.editInterval = setInterval(this.edit(e), 50);
-            });
+        // this.canvas.canvas.addEventListener('pointerdown', () => {
+        //     this.canEdit = true;
+        //     this.canvas.canvas.addEventListener('pointermove', (e) => {
+        //         if (this.canEdit)
+        //             this.editInterval = setInterval(this.edit(e), 50);
+        //     });
 
-            this.canvas.canvas.addEventListener('pointerup', () => {
-                this.canEdit = false;
-                clearInterval(this.editInterval);
-            });
-        });
+        //     this.canvas.canvas.addEventListener('pointerup', () => {
+        //         this.canEdit = false;
+        //         clearInterval(this.editInterval);
+        //     });
+        // });
     }
 
 
@@ -288,7 +296,7 @@ export class Gameplay {
         if (this.dropping) {
             this.deleteButton(element);
             
-            this.canvas.canvas.addEventListener('mousemove', (e) => this.onFucus(e), false);
+            this.canvas.canvas.addEventListener(this.event+'move', (e) => this.onFucus(e), false);
             this.canvas.canvas.addEventListener('click', (e) => this.onDrop(e), false)
         }
     }
@@ -356,55 +364,55 @@ export class Gameplay {
 
         // get zoom in button
         this.zoomInButton = document.getElementById('btn-zoom-in');
-        this.zoomInButton.addEventListener('mousedown', () => {
+        this.zoomInButton.addEventListener(this.event+'down', () => {
             this.zoomChangeInterval = setInterval(() => this.zoomIn(), 100);
 
-            this.zoomInButton.addEventListener('mouseup', () => {
+            this.zoomInButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.zoomChangeInterval);
             });
 
-            this.zoomInButton.addEventListener('mouseleave', () => {
+            this.zoomInButton.addEventListener(this.event+'leave', () => {
                 clearInterval(this.zoomChangeInterval);
             });
         });
 
-        this.zoomInButton.addEventListener('pointerdown', () => {
-            this.zoomChangeInterval = setInterval(() => this.zoomIn(), 100);
+        // this.zoomInButton.addEventListener('pointerdown', () => {
+        //     this.zoomChangeInterval = setInterval(() => this.zoomIn(), 100);
 
-            this.zoomInButton.addEventListener('pointerup', () => {
-                clearInterval(this.zoomChangeInterval);
-            });
+        //     this.zoomInButton.addEventListener('pointerup', () => {
+        //         clearInterval(this.zoomChangeInterval);
+        //     });
 
-            this.zoomInButton.addEventListener('pointerleave', () => {
-                clearInterval(this.zoomChangeInterval);
-            });
-        });
+        //     this.zoomInButton.addEventListener('pointerleave', () => {
+        //         clearInterval(this.zoomChangeInterval);
+        //     });
+        // });
 
         // get zoom out button
         this.zoomOutButton = document.getElementById('btn-zoom-out');   
-        this.zoomOutButton.addEventListener('mousedown', () => {
+        this.zoomOutButton.addEventListener(this.event+'down', () => {
             this.zoomChangeInterval = setInterval(() => this.zoomOut(), 100);
 
-            this.zoomOutButton.addEventListener('mouseup', () => {
+            this.zoomOutButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.zoomChangeInterval);
             });
 
-            this.zoomOutButton.addEventListener('mouseleave', () => {
+            this.zoomOutButton.addEventListener(this.event+'leave', () => {
                 clearInterval(this.zoomChangeInterval);
             });
         });
 
-        this.zoomOutButton.addEventListener('pointerdown', () => {
-            this.zoomChangeInterval = setInterval(() => this.zoomOut(), 100);
+        // this.zoomOutButton.addEventListener('pointerdown', () => {
+        //     this.zoomChangeInterval = setInterval(() => this.zoomOut(), 100);
 
-            this.zoomOutButton.addEventListener('pointerup', () => {
-                clearInterval(this.zoomChangeInterval);
-            });
+        //     this.zoomOutButton.addEventListener('pointerup', () => {
+        //         clearInterval(this.zoomChangeInterval);
+        //     });
 
-            this.zoomOutButton.addEventListener('pointerleave', () => {
-                clearInterval(this.zoomChangeInterval);
-            });
-        });
+        //     this.zoomOutButton.addEventListener('pointerleave', () => {
+        //         clearInterval(this.zoomChangeInterval);
+        //     });
+        // });
 
         // get reset zoom button
         this.resetZoomButton = document.getElementById('btn-zoom-reset');
@@ -412,54 +420,54 @@ export class Gameplay {
 
         // get speed input
         this.speedlessButton = document.getElementById('btn-speed-less');
-        this.speedlessButton.addEventListener('mousedown', () => {
+        this.speedlessButton.addEventListener(this.event+'down', () => {
             this.speedChangeInterval = setInterval(() => this.changeSpeed(-5), 100);
 
-            this.speedlessButton.addEventListener('mouseup', () => {
+            this.speedlessButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.speedChangeInterval);
             });
 
-            this.speedlessButton.addEventListener('mouseleave', () => {
+            this.speedlessButton.addEventListener(this.event+'leave', () => {
                 clearInterval(this.speedChangeInterval);
             });
         });
 
-        this.speedlessButton.addEventListener('pointerdown', () => {
-            this.speedChangeInterval = setInterval(() => this.changeSpeed(-5), 100);
+        // this.speedlessButton.addEventListener('pointerdown', () => {
+        //     this.speedChangeInterval = setInterval(() => this.changeSpeed(-5), 100);
 
-            this.speedlessButton.addEventListener('pointerup', () => {
-                clearInterval(this.speedChangeInterval);
-            });
+        //     this.speedlessButton.addEventListener('pointerup', () => {
+        //         clearInterval(this.speedChangeInterval);
+        //     });
 
-            this.speedlessButton.addEventListener('pointerleave', () => {
-                clearInterval(this.speedChangeInterval);
-            });
-        });
+        //     this.speedlessButton.addEventListener('pointerleave', () => {
+        //         clearInterval(this.speedChangeInterval);
+        //     });
+        // });
 
         this.speedmoreButton = document.getElementById('btn-speed-more');
-        this.speedmoreButton.addEventListener('mousedown', () => {
+        this.speedmoreButton.addEventListener(this.event+'down', () => {
             this.speedChangeInterval = setInterval(() => this.changeSpeed(5), 100);
 
-            this.speedmoreButton.addEventListener('mouseup', () => {
+            this.speedmoreButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.speedChangeInterval);
             });
 
-            this.speedmoreButton.addEventListener('mouseleave', () => {
+            this.speedmoreButton.addEventListener(this.event+'leave', () => {
                 clearInterval(this.speedChangeInterval);
             });
         });
 
-        this.speedmoreButton.addEventListener('pointerdown', () => {
-            this.speedChangeInterval = setInterval(() => this.changeSpeed(5), 100);
+        // this.speedmoreButton.addEventListener('pointerdown', () => {
+        //     this.speedChangeInterval = setInterval(() => this.changeSpeed(5), 100);
 
-            this.speedmoreButton.addEventListener('pointerup', () => {
-                clearInterval(this.speedChangeInterval);
-            });
+        //     this.speedmoreButton.addEventListener('pointerup', () => {
+        //         clearInterval(this.speedChangeInterval);
+        //     });
 
-            this.speedmoreButton.addEventListener('pointerleave', () => {
-                clearInterval(this.speedChangeInterval);
-            });
-        });
+        //     this.speedmoreButton.addEventListener('pointerleave', () => {
+        //         clearInterval(this.speedChangeInterval);
+        //     });
+        // });
 
         //get button drawer
         this.drawerButton = document.getElementById('btn-drawer');
@@ -476,211 +484,211 @@ export class Gameplay {
 
         //get button nav-up
         this.navUpButton = document.getElementById('btn-nav-up');
-        this.navUpButton.addEventListener('mousedown', () => {
+        this.navUpButton.addEventListener(this.event+'down', () => {
             this.navInterval = setInterval(() => this.moveTo(0, 1), 100);
 
-            this.navUpButton.addEventListener('mouseup', () => {
+            this.navUpButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
             })
 
-            this.navUpButton.addEventListener('mouseleave', () => {
+            this.navUpButton.addEventListener(this.event+'leave', () => {
                 clearInterval(this.navInterval)
             })
         });
 
-        this.navUpButton.addEventListener('pointerdown', () => {
-            this.navInterval = setInterval(() => this.moveTo(0, 1), 100);
+        // this.navUpButton.addEventListener('pointerdown', () => {
+        //     this.navInterval = setInterval(() => this.moveTo(0, 1), 100);
 
-            this.navUpButton.addEventListener('pointerup', () => {
-                clearInterval(this.navInterval)
-            })
+        //     this.navUpButton.addEventListener('pointerup', () => {
+        //         clearInterval(this.navInterval)
+        //     })
 
-            this.navUpButton.addEventListener('pointerleave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
+        //     this.navUpButton.addEventListener('pointerleave', () => {
+        //         clearInterval(this.navInterval)
+        //     })
+        // });
 
         //get button nav-down
         this.navDownButton = document.getElementById('btn-nav-down');
-        this.navDownButton.addEventListener('mousedown', () => {
+        this.navDownButton.addEventListener(this.event+'down', () => {
             this.navInterval = setInterval(() => this.moveTo(0, -1), 100)
 
-            this.navDownButton.addEventListener('mouseup', () => {
+            this.navDownButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
             })
 
-            this.navDownButton.addEventListener('mouseleave', () => {
+            this.navDownButton.addEventListener(this.event+'leave', () => {
                 clearInterval(this.navInterval)
             })
         });
 
-        this.navDownButton.addEventListener('pointerdown', () => {
-            this.navInterval = setInterval(() => this.moveTo(0, -1), 100)
+        // this.navDownButton.addEventListener('pointerdown', () => {
+        //     this.navInterval = setInterval(() => this.moveTo(0, -1), 100)
 
-            this.navDownButton.addEventListener('pointerup', () => {
-                clearInterval(this.navInterval)
-            })
+        //     this.navDownButton.addEventListener('pointerup', () => {
+        //         clearInterval(this.navInterval)
+        //     })
 
-            this.navDownButton.addEventListener('pointerleave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
+        //     this.navDownButton.addEventListener('pointerleave', () => {
+        //         clearInterval(this.navInterval)
+        //     })
+        // });
 
         //get button nav-left
         this.navLeftButton = document.getElementById('btn-nav-left');
-        this.navLeftButton.addEventListener('mousedown', () => {
+        this.navLeftButton.addEventListener(this.event+'down', () => {
             this.navInterval = setInterval(() => this.moveTo(1, 0), 100)
 
-            this.navLeftButton.addEventListener('mouseup', () => {
+            this.navLeftButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
             })
 
-            this.navLeftButton.addEventListener('mouseleave', () => {
+            this.navLeftButton.addEventListener(this.event+'leave', () => {
                 clearInterval(this.navInterval)
             })
         });
 
-        this.navLeftButton.addEventListener('pointerdown', () => {
-            this.navInterval = setInterval(() => this.moveTo(1, 0), 100)
+        // this.navLeftButton.addEventListener('pointerdown', () => {
+        //     this.navInterval = setInterval(() => this.moveTo(1, 0), 100)
 
-            this.navLeftButton.addEventListener('pointerup', () => {
-                clearInterval(this.navInterval)
-            })
+        //     this.navLeftButton.addEventListener('pointerup', () => {
+        //         clearInterval(this.navInterval)
+        //     })
 
-            this.navLeftButton.addEventListener('pointerleave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
+        //     this.navLeftButton.addEventListener('pointerleave', () => {
+        //         clearInterval(this.navInterval)
+        //     })
+        // });
 
         //get button nav-right
         this.navRightButton = document.getElementById('btn-nav-right');
-        this.navRightButton.addEventListener('mousedown', () => {
+        this.navRightButton.addEventListener(this.event+'down', () => {
             this.navInterval = setInterval(() => this.moveTo(-1, 0), 100)
 
-            this.navRightButton.addEventListener('mouseup', () => {
+            this.navRightButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
             })
 
-            this.navRightButton.addEventListener('mouseleave', () => {
+            this.navRightButton.addEventListener(this.event+'leave', () => {
                 clearInterval(this.navInterval)
             })
         });
 
-        this.navRightButton.addEventListener('pointerdown', () => {
-            this.navInterval = setInterval(() => this.moveTo(-1, 0), 100)
+        // this.navRightButton.addEventListener('pointerdown', () => {
+        //     this.navInterval = setInterval(() => this.moveTo(-1, 0), 100)
 
-            this.navRightButton.addEventListener('pointerup', () => {
-                clearInterval(this.navInterval)
-            })
+        //     this.navRightButton.addEventListener('pointerup', () => {
+        //         clearInterval(this.navInterval)
+        //     })
 
-            this.navRightButton.addEventListener('pointerleave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
+        //     this.navRightButton.addEventListener('pointerleave', () => {
+        //         clearInterval(this.navInterval)
+        //     })
+        // });
 
         //get button nav-left-up
         this.navLeftUpButton = document.getElementById('btn-nav-left-up');
-        this.navLeftUpButton.addEventListener('mousedown', () => {
+        this.navLeftUpButton.addEventListener(this.event+'down', () => {
             this.navInterval = setInterval(() => this.moveTo(1, 1), 100)
 
-            this.navLeftUpButton.addEventListener('mouseup', () => {
+            this.navLeftUpButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
             })
 
-            this.navLeftUpButton.addEventListener('mouseleave', () => {
+            this.navLeftUpButton.addEventListener(this.event+'leave', () => {
                 clearInterval(this.navInterval)
             })
         });
 
-        this.navLeftUpButton.addEventListener('pointerdown', () => {
-            this.navInterval = setInterval(() => this.moveTo(1, 1), 100)
+        // this.navLeftUpButton.addEventListener('pointerdown', () => {
+        //     this.navInterval = setInterval(() => this.moveTo(1, 1), 100)
 
-            this.navLeftUpButton.addEventListener('pointerup', () => {
-                clearInterval(this.navInterval)
-            })
+        //     this.navLeftUpButton.addEventListener('pointerup', () => {
+        //         clearInterval(this.navInterval)
+        //     })
 
-            this.navLeftUpButton.addEventListener('pointerleave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
+        //     this.navLeftUpButton.addEventListener('pointerleave', () => {
+        //         clearInterval(this.navInterval)
+        //     })
+        // });
 
         //get button nav-right-up
         this.navRightUpButton = document.getElementById('btn-nav-right-up');
-        this.navRightUpButton.addEventListener('mousedown', () => {
+        this.navRightUpButton.addEventListener(this.event+'down', () => {
             this.navInterval = setInterval(() => this.moveTo(-1, 1), 100)
 
-            this.navRightUpButton.addEventListener('mouseup', () => {
+            this.navRightUpButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
             })
 
-            this.navRightUpButton.addEventListener('mouseleave', () => {
+            this.navRightUpButton.addEventListener(this.event+'leave', () => {
                 clearInterval(this.navInterval)
             })
         });
 
-        this.navRightUpButton.addEventListener('pointerdown', () => {
-            this.navInterval = setInterval(() => this.moveTo(-1, 1), 100)
+        // this.navRightUpButton.addEventListener('pointerdown', () => {
+        //     this.navInterval = setInterval(() => this.moveTo(-1, 1), 100)
 
-            this.navRightUpButton.addEventListener('pointerup', () => {
-                clearInterval(this.navInterval)
-            })
+        //     this.navRightUpButton.addEventListener('pointerup', () => {
+        //         clearInterval(this.navInterval)
+        //     })
 
-            this.navRightUpButton.addEventListener('pointerleave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
+        //     this.navRightUpButton.addEventListener('pointerleave', () => {
+        //         clearInterval(this.navInterval)
+        //     })
+        // });
 
         //get button nav-left-down
         this.navLeftDownButton = document.getElementById('btn-nav-left-down');
-        this.navLeftDownButton.addEventListener('mousedown', () => {
+        this.navLeftDownButton.addEventListener(this.event+'down', () => {
             this.navInterval = setInterval(() => this.moveTo(1, -1), 100)
 
-            this.navLeftDownButton.addEventListener('mouseup', () => {
+            this.navLeftDownButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
             })
 
-            this.navLeftDownButton.addEventListener('mouseleave', () => {
+            this.navLeftDownButton.addEventListener(this.event+'leave', () => {
                 clearInterval(this.navInterval)
             })
         });
 
-        this.navLeftDownButton.addEventListener('pointerdown', () => {
-            this.navInterval = setInterval(() => this.moveTo(1, -1), 100)
+        // this.navLeftDownButton.addEventListener('pointerdown', () => {
+        //     this.navInterval = setInterval(() => this.moveTo(1, -1), 100)
 
-            this.navLeftDownButton.addEventListener('pointerup', () => {
-                clearInterval(this.navInterval)
-            })
+        //     this.navLeftDownButton.addEventListener('pointerup', () => {
+        //         clearInterval(this.navInterval)
+        //     })
 
-            this.navLeftDownButton.addEventListener('pointerleave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
+        //     this.navLeftDownButton.addEventListener('pointerleave', () => {
+        //         clearInterval(this.navInterval)
+        //     })
+        // });
 
         //get button nav-right-down
         this.navRightDownButton = document.getElementById('btn-nav-right-down');
-        this.navRightDownButton.addEventListener('mousedown', () => {
+        this.navRightDownButton.addEventListener(this.event+'down', () => {
             this.navInterval = setInterval(() => this.moveTo(-1, -1), 100)
 
-            this.navRightDownButton.addEventListener('mouseup', () => {
+            this.navRightDownButton.addEventListener(this.event+'up', () => {
                 clearInterval(this.navInterval)
             })
 
-            this.navRightDownButton.addEventListener('mouseleave', () => {
+            this.navRightDownButton.addEventListener(this.event+'leave', () => {
                 clearInterval(this.navInterval)
             })
         });
 
-        this.navRightDownButton.addEventListener('pointerdown', () => {
-            this.navInterval = setInterval(() => this.moveTo(-1, -1), 100)
+        // this.navRightDownButton.addEventListener('pointerdown', () => {
+        //     this.navInterval = setInterval(() => this.moveTo(-1, -1), 100)
 
-            this.navRightDownButton.addEventListener('pointerup', () => {
-                clearInterval(this.navInterval)
-            })
+        //     this.navRightDownButton.addEventListener('pointerup', () => {
+        //         clearInterval(this.navInterval)
+        //     })
 
-            this.navRightDownButton.addEventListener('pointerleave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
+        //     this.navRightDownButton.addEventListener('pointerleave', () => {
+        //         clearInterval(this.navInterval)
+        //     })
+        // });
 
         //get button btn-nav-center
         this.navCenterButton = document.getElementById('btn-nav-center');
@@ -713,7 +721,7 @@ export class Gameplay {
         this.container.removeChild(document.getElementById("cursor-focus"));
         document.querySelector('.top-left').removeChild(document.getElementById("delete-button"));
 
-        this.canvas.canvas.removeEventListener('mousemove', (e) => this.onFucus(e), false)
+        this.canvas.canvas.removeEventListener(this.event+'move', (e) => this.onFucus(e), false)
         this.canvas.canvas.removeEventListener('click', (e) => this.onDrop(e), false)
         this.dropping = false;
     }
