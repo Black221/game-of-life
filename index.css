@@ -494,11 +494,10 @@ body {
     align-items: center;
     justify-content: space-between;
     text-align: center;
-    margin: 10px 0;
 }
 
 .nav-head > div, .nav-center > div, .nav-foot > div {
-    margin: 10px 10px;
+    margin: 4px 4px;
     width: 32px;
     height: 32px;
     /* center the text */
