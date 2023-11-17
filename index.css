@@ -742,6 +742,12 @@ th, td {
 
 @media screen and (max-width: 460px) {
 
+    body {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
+
     i {
         font-size: 10px;
     }
