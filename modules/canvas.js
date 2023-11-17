@@ -96,7 +96,7 @@ export class Canvas {
         }
     }
 
-    redraw(map, color) {
+    redraw(map, color = null) {
         this.init();
         for (let x = 0; x < map.length; x++) {
             for (let y = 0; y < map[x].length; y++) {
