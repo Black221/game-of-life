@@ -62,7 +62,7 @@ export class Gameplay {
     play() {
         if (this.isPlaying) {
             this.stop();
-            this.toogleClass(document.getElementById('icon-play'), 'fa-pause', 'fa-play')
+            
             return;
         }
         this.isPlaying = true;
@@ -87,6 +87,7 @@ export class Gameplay {
 
     stop() {
         this.isPlaying = false;
+        this.toogleClass(document.getElementById('icon-play'), 'fa-pause', 'fa-play')
         clearInterval(this.interval);
     }
 
@@ -194,7 +195,7 @@ export class Gameplay {
             this.canEdit = true;
             this.canvas.canvas.addEventListener('mousemove', (e) => {
                 if (this.canEdit)
-                    this.editInterval = setInterval(this.edit(e), 100);
+                    this.editInterval = setInterval(this.edit(e), 50);
             });
 
             this.canvas.canvas.addEventListener('mouseup', () => {
@@ -224,7 +225,7 @@ export class Gameplay {
             this.canEdit = true;
             this.canvas.canvas.addEventListener('mousemove', (e) => {
                 if (this.canEdit)
-                    this.editInterval = setInterval(this.edit(e), 100);
+                    this.editInterval = setInterval(this.edit(e), 50);
             });
 
             this.canvas.canvas.addEventListener('mouseup', () => {
@@ -351,7 +352,12 @@ export class Gameplay {
 
         //get button drawer
         this.drawerButton = document.getElementById('btn-drawer');
-        this.drawerButton.addEventListener('click', () => this.toogleDrawer());
+        this.drawerButton.addEventListener('click', () => {
+            this.toogleDrawer()
+            this.canvas.canvas.addEventListener('click', (e) => {
+                    this.edit(e);
+            }, false)
+        });
 
         //get button erase
         this.eraseButton = document.getElementById('btn-eraser');

@@ -2,7 +2,7 @@
 
 export const MAX_CELL_SIZE = 100;
 export const MIN_CELL_SIZE = 5;
-export const DEFAULT_CELL_SIZE = 25;
+export const DEFAULT_CELL_SIZE = 10;
 export const CELL_SIZE_STEP = 5;
 
 export const MAX_SPEED = 100;

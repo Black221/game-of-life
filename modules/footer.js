@@ -10,7 +10,7 @@ export class Footer {
         this.footerBtn = document.querySelector('#btn-open-footer');
         this.footerContent = document.getElementById('footer-content');
         
-        this.isOpen = false;
+        this.isOpen = true;
         this.toggleFooter();
 
         this.footerBtn.addEventListener('click', () => {

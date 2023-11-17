@@ -733,3 +733,14 @@ th, td {
         left: 10px;
     }
 }
+
+#btn-close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    background-color: var(--color-primary);
+    border-radius: var(--dimension-border-radius);
+    padding: 10px;
+    z-index: 200;
+}

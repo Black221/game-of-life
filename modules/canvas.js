@@ -41,7 +41,7 @@ export class Canvas {
     drawGrid() {
         this.ctx.strokeStyle = COLOR.gray;
         
-        this.ctx.lineWidth = 0.5;
+        this.ctx.lineWidth = 0.25;
         for (let x = 0; x <= this.width; x += this.cellSize) {
 
             // if (x / (this.cellSize * 3)) this.ctx.strokeStyle = COLOR.secondary;
@@ -64,7 +64,7 @@ export class Canvas {
     drawCell(x, y) {
         //draw with stroke
         this.ctx.strokeStyle = COLOR.gray;
-        this.ctx.lineWidth = 0.5;
+        this.ctx.lineWidth = 0.25;
         this.ctx.strokeRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
         //draw cicle with fill
         this.ctx.fillStyle = COLOR.primary;
@@ -78,7 +78,7 @@ export class Canvas {
     drawCellWithColor(x, y, color) {
         //draw with stroke
         // this.ctx.strokeStyle = COLOR.gray;
-        // this.ctx.lineWidth = 0.5;
+        // this.ctx.lineWidth = 0.25;
         // this.ctx.strokeRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
         //draw circle with fill
         this.ctx.fillStyle = color;
