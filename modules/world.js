@@ -22,6 +22,8 @@ export class World {
     }
 
     init() {
+        this.newCells = [];
+        this.previous = [];
         for (let i = 0; i < this.rows; i++) {
             this.world[i] = [];
             for (let j = 0; j < this.cols; j++) {
