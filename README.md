@@ -27,14 +27,36 @@ You can open it just with your navigator by selecting the index.html file
 
 
 ### Fonctionnalities
-
-In this version you can:
--  add tiles with longpress on board
--  delete tiles by longpress on baord
--  add some common tiles with filter on the sidebar
--  get statics on the bottom bar
--  do some challenge by selecting the challenge mode on the header
-
+#### Control panel
+![control panel](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114738.png)
+#### Navigation on world
+![navgation](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114753.png)
+#### Zoom in out and reset
+![zoom](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114801.png)
+#### Create random world
+![random](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114728.png)
+#### Place alive element
+![drawer](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114635.png)
+#### Erase alive element
+![erase](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114641.png)
+#### Change alive element color
+![color](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114646.png)
+#### Change color every 50 generations
+![multicolor](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114653.png)
+#### Display generation and speed controller
+![speed](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114700.png)
+#### Open Sidebar
+![sidebar open](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114902.png)
+#### Filter pattern
+![sidebar filter](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20115152.png)
+#### Click to the plus button to add Pattern
+![pattern](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114913.png)
+#### Show Stats
+![bottom open](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114850.png)
+#### Show platform presentation
+![info](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114707.png)
+#### Change mode
+![mode select](https://github.com/Black221/game-of-life/blob/96e15ca1413fdc0f2762a7057fbee55cd919e333/assets/Screenshot%202023-11-17%20114857.png)
 
 ## Contributing
 
