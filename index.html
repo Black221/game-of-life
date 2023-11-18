@@ -98,6 +98,88 @@
                                 3- <span class="rule-display"></span><br />
                                 4- <span class="rule-display"></span><br />
                             </p>
+                            <h3>Fontionnalities</h3>
+                            <div>
+                                <div class="flex flex-between">
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 114738.png" alt="feature-4">
+                                        <div>Simulation controllers</div>
+                                    </div>
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 114753.png" alt="feature-5">
+                                        <div>Navigation buttons</div>
+                                    </div>
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 114801.png" alt="feature-6">
+                                        <div>Zoom in/out/reset</div>
+                                    </div>
+                                
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 114728.png" alt="feature-4">
+                                        <div>Generate random World</div>
+                                    </div>
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 114635.png" alt="feature-5">
+                                        <div>Active drawer for adding alive cell</div>
+                                    </div>
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 114641.png" alt="feature-6">
+                                        <div>Active eraser for deleting alive cell</div>
+                                    </div>
+                                
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 114646.png" alt="feature-4">
+                                        <div>Change color</div>
+                                    </div>
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 114653.png" alt="feature-5">
+                                        <div>Change color ever 50 fps</div>
+                                    </div>
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 114700.png" alt="feature-6">
+                                        <div>Speed and timer controllers</div>
+                                    </div>
+                                
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 114902.png" alt="feature-4">
+                                        <div>Open sidebar</div>
+                                    </div>
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 115152.png" alt="feature-6">
+                                        <div>Filter pattern</div>
+                                    </div>
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 114913.png" alt="feature-5">
+                                        <div>Add pattern on click in the plus button</div>
+                                    </div>
+                                
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-18 163743.png" alt="feature-1">
+                                        <div>Original John Conway game of life</div>
+                                    </div>
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-18 163748.png" alt="feature-2">
+                                        <div>Experimentation mode</div>
+                                    </div>
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-18 163754.png" alt="feature-3">
+                                        <div>Experimentation mode</div>
+                                    </div>
+                                
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-18 163228.png" alt="feature-4">
+                                        <div>Add more civilization</div>
+                                    </div>
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-18 163759.png" alt="feature-5">
+                                        <div>other mode</div>
+                                    </div>
+                                    <div class="div-img">
+                                        <img src="./assets/Screenshot 2023-11-17 114707.png" alt="feature-6">
+                                        <div>Show modal</div>
+                                    </div>
+                                </div>
+                            </div>
                             <h3>References</h3>
                             <table>
                                 <tr>
@@ -176,17 +258,31 @@
                 <!-- HEADER -->
                 <div id="header">
                     <div class="flex-1">
-                        <div id="btn-test" class="btn btn-test">
+                        <div id="btn-original" class="btn btn-original">
                             <button >
-                                <i class="fa-solid fa-vial fa-2xl"></i>
+                                <i class="fa-solid fa-gem fa-2xl"></i>
                             </button>
-                            <span>Test</span>
+                            <span>Original</span>
                         </div>
-                        <div  id="btn-challenge" class="btn btn-random">
+                        <div id="btn-cohabitation" class="btn btn-cohabitation">
                             <button>
-                                <i class="fa-solid fa-medal fa-2xl"></i>
+                                <i class="fa-solid fa-users fa-2xl"></i>
                             </button>
-                            <span>Challenge</span>
+                            <span class="desctop-display-none">Coo-exp</span>
+                            <span class="mobile-display-none">Cohabitation Experimentation</span>
+                        </div>
+                        <div id="btn-prohibition" class="btn btn-prohibition">
+                            <button>
+                                <i class="fa-solid fa-virus fa-2xl"></i>
+                            </button>
+                            <span class="desctop-display-none">virus-exp</span>
+                            <span class="mobile-display-none">Prohibition Experimentation</span>
+                        </div>
+                        <div id="btn-mixte" class="btn btn-mixte">
+                            <button>
+                                <i class="fa-solid fa-shuffle fa-2xl"></i>
+                            </button>
+                            <span>Mixte</span>
                         </div>
                     </div>
                     <div class="details">
@@ -282,16 +378,47 @@
 
                     <!-- LEFT BUTTON -->
                     <div class="div-btn left-btn">
-                        <!-- <div class="btn btn-dice">
-                            <button id="btn-auto-random">
-                                Auto <i class="fa-solid fa-dice fa-2xl"></i>
-                            </button>
-                        </div> -->
-
                         <div class="btn btn-dice">
                             <button id="btn-random">
-                                <i class="fa-solid fa-dice fa-2xl"></i>
+                                <i class="fa-solid fa-dice fa-2xl" style="color: #ffffff;" ></i>
                             </button>
+                        </div>
+                        <div class="btn btn-civilization">
+                            <div class="flex">
+                                <span>Civilizations</span>
+                            </div>
+                            <div class="flex">
+                                <div>Current</div>
+                                <div class="btn btn-civilization-previous">
+                                    <button id="btn-current-civilization-previous">
+                                        <i class="fa-solid fa-caret-left fa-2xl"></i>
+                                    </button>
+                                </div>
+                                <div class="civilization-display">
+                                    <span id="display-current-civilization">1</span>
+                                </div>
+                                <div class="btn btn-civilization-next">
+                                    <button id="btn-current-civilization-next">
+                                        <i class="fa-solid fa-caret-right fa-2xl"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div>Count</div>
+                                <div class="btn btn-civilization-less">
+                                    <button id="btn-civilization-less">
+                                        <i class="fa-solid fa-caret-left fa-2xl"></i>
+                                    </button>
+                                </div>
+                                <div class="civilization-display">
+                                    <span id="display-civilizations">1</span>
+                                </div>
+                                <div class="btn btn-civilization-more">
+                                    <button id="btn-civilization-more">
+                                        <i class="fa-solid fa-caret-right fa-2xl"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

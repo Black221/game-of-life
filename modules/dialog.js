@@ -20,6 +20,7 @@ export class Dialog {
             `This is a Conway's Game of Life simulator.
              You can draw your own patterns or choose one from the sidebar.`
         )
+        this.closeDialog();
     }
 
     closeDialog() {
@@ -31,7 +32,7 @@ export class Dialog {
         this.dialog.style.display = 'flex';
 
         this.dialogTitle.textContent = title;
-        this.dialogContent.textContent = content;
+        this.dialogContent.innerHTML = content;
         this.isOpen = true;
     }
 

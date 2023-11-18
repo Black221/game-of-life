@@ -1,5 +1,35 @@
 /* remove button style */
 
+.confirm-btn {
+    background: var(--color-primary);
+    color: white;
+    border-radius: var(--dimension-border-radius);
+    padding: 10px 20px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.desctop-display-none {
+    display: none;
+}
+
+.flex.flex-between {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.flex.flex-between > .div-img > img {
+    max-height: 150px;
+    max-width: 150px;
+}
+
+.flex.flex-between > .div-img  {
+    margin-bottom: 20px;
+    width: 250px;
+}
+
 button {
     background: none;
     border: none;
@@ -493,7 +523,6 @@ body {
 
 .div-btn:hover {
     opacity: 1;
-    cursor: pointer;
 }
 
 .nav-head, .nav-center, .nav-foot {
@@ -734,6 +763,24 @@ th, td {
     text-align: center;
 }
 
+.btn.btn-civilization {
+    background: var(--color-primary);
+    color: white;
+    border-radius: var(--dimension-border-radius);
+    padding: 10px 20px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.btn.btn-civilization:hover {
+    background: var(--color-primary-dark);
+}
+
+.btn.btn-civilization > div {
+    margin: 10px 0px;
+}
+
+
 /* adatation pour portable */
 /* media */
 
@@ -799,8 +846,12 @@ th, td {
         font-size: 10px;
     }
 
-
+    .mobile-display-none {
+        display: none;
+    }
 }
+
+
 
 #btn-close-modal {
     position: absolute;

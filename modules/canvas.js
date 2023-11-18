@@ -76,23 +76,27 @@ export class Canvas {
     }
 
     drawCellWithColor(x, y, color) {
-        //draw with stroke
-        // this.ctx.strokeStyle = COLOR.gray;
-        // this.ctx.lineWidth = 0.25;
-        // this.ctx.strokeRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
-        //draw circle with fill
         this.ctx.fillStyle = color;
         this.ctx.beginPath();
         this.ctx.arc(x * this.cellSize + this.cellSize / 2, y * this.cellSize + this.cellSize / 2, this.cellSize / 2, 0, 2 * Math.PI);
         this.ctx.fill();
-        // this.ctx.fillStyle = color;
-        // this.ctx.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
     }
 
     drawCells(cells, c) {
         for (let cell of cells) {
             let color = cell.alive ? c : '#000000';
             this.drawCellWithColor(cell.x, cell.y, color);
+        }
+    }
+
+    drawCellsWithColors(cells, colors) {
+        for (let cell of cells) {
+            if (cell.alive === -1)
+                this.drawCellWithColor(cell.x, cell.y, COLOR.gray);
+            else {
+                let color = cell.alive ? colors[cell.alive - 1] : '#000000';
+                this.drawCellWithColor(cell.x, cell.y, color);
+            }
         }
     }
 
@@ -108,6 +112,19 @@ export class Canvas {
         }
     }
 
+    reDrawWithColor(map, colors) {
+        this.init();
+        for (let x = 0; x < map.length; x++) {
+            for (let y = 0; y < map[x].length; y++) {
+                if (map[x][y] === -1) {
+                    this.drawCellWithColor(y, x, COLOR.gray);
+                } else if(map[x][y]) {
+                    this.drawCellWithColor(y, x, colors[map[x][y] - 1]);
+                }
+            }
+        }
+    }
+
 
     resize(width, height, cellSize, map, color) {
         this.width = width;
@@ -116,4 +133,10 @@ export class Canvas {
         this.redraw(map, color);
     }
 
+    resizeWithColors(width, height, cellSize, map, colors) {
+        this.width = width;
+        this.height = height;
+        this.cellSize = cellSize;
+        this.reDrawWithColor(map, colors);
+    }
 }

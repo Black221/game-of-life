@@ -1,51 +1,58 @@
 import { COLOR, MAX_SPEED } from "./constants.js";
 import { World } from "./world.js";
 import { Canvas } from "./canvas.js";
+import { GameplayButtonManager } from "./gameplayButtonManager.js";
 
 export class Gameplay {
 
     constructor(
         canvas, dimension, mode, footer, dialog, mobile
     ) {
+        // gameplay options
         this.canvas = canvas;
         this.dimension = dimension;
         this.world = new World(this.dimension.rows, this.dimension.cols);
-
         this.mode = mode;
         this.footer = footer;
         this.dialog = dialog;
 
+        // on mobile devices
         this.mobile = mobile;
-        
-        this.isPlaying = false;
-        this.interval = null;
-
-        this.multiColor = false;
-        this.autoAdd = false;
-
+        this.event = 'mouse'
+        if (this.mobile)
+            this.event = 'pointer'
+        else
+            this.event = 'mouse'
+    
+        // speed and timer variables
         this.speed = MAX_SPEED / 4;
         document.getElementById('display-speed').innerHTML = this.speed;
         this.count = 0;
 
+        // previous world variables
         this.previousWorld = [];
         this.previousCount = 0;
         this.maxPrevious = 15;
 
+        // drag variables
         this.x = 0;
         this.y = 0;
 
+        // usecases toggle variables
         this.container = document.getElementById('container-canvas');
         this.dropping = false;
         this.droppingObject = null;
-
         this.drawing = false;
         this.erasing = false;
+        this.isPlaying = false;
+        this.interval = null;
+        this.multiColor = false;
         
-        this.editInterval = null;
-        this.zoomChangeInterval = null;
-        this.speedChangeInterval = null;
-        this.navInterval = null;
-
+        // mode civilization variables
+        this.civilizations = 1;
+        this.currentCivilization = 1;
+        
+        // colors
         this.colors = [
             COLOR.primary,
             "#00DFA2",
@@ -55,13 +62,9 @@ export class Gameplay {
 
         // get rand color
         this.color = this.colors[1];
-        this.event = 'mouse'
-        if (this.mobile)
-            this.event = 'pointer'
-        else
-            this.event = 'mouse'
 
-        this.initButton();
+        // init states
+        this.buttonManager = new GameplayButtonManager(this, dialog, canvas, mode);
         this.zoomOut();
     }
 
@@ -81,21 +84,23 @@ export class Gameplay {
 
         this.interval = setInterval(() => {
 
-            this.world.nextGeneration();
-            this.canvas.drawCells(this.world.getCellsChange(), this.color);
+            if (this.mode.getCurrentMode() === 'original'){
+                this.world.nextGeneration();
+                this.canvas.drawCells(this.world.getCellsChange(), this.color);
+                this.footer.setStats({
+                    alive: this.world.getAlive(),
+                    dead: this.world.getDead(),
+                    born: this.world.getBorn(),
+                    generation: this.count + 1,
+                    deadFreq: this.world.getDeadFreq()
+                });
 
-            // if (this.autoAdd && this.count % 50 === 0) {
-            //     this.world.random(0.95);
-            //     this.canvas.drawCells(this.world.getCellsChange(), this.color);
-            // }
+            } else {
+                this.world.nextGenerationVersion2(this.civilizations);
+                this.canvas.drawCellsWithColors(this.world.getCellsChange(), this.colors.slice(0, this.civilizations));
+            }
 
-            this.footer.setStats({
-                alive: this.world.getAlive(),
-                dead: this.world.getDead(),
-                born: this.world.getBorn(),
-                generation: this.count + 1,
-                deadFreq: this.world.getDeadFreq()
-            });
+
             this.count++;
             if (this.count % 25 === 0 && this.multiColor)
                 this.getNextColors();
@@ -118,7 +123,12 @@ export class Gameplay {
         this.canvas.redraw(this.world.getWorld(), this.color);
     }
 
-    onModechange() {
+    onModeChange(mode) {
+        this.mode.toogleMode(mode)
+        this.permissions = this.mode.getPermissions(mode)
+        this.civilizations = this.permissions.minCivilization;
+        document.getElementById('display-civilizations').innerHTML = this.civilizations;
+
         this.stop();
         this.count = 0;
         document.getElementById('display-time').innerHTML = this.count;
@@ -126,16 +136,32 @@ export class Gameplay {
         this.canvas.redraw(this.world.getWorld(), this.color);
     }
 
+    getPermission() {
+        return this.permissions;
+    }
+
     random() {
         this.reset();
-        this.world.random();
-        this.canvas.redraw(this.world.getWorld(), this.color);
+        if (this.mode.getCurrentMode() === 'original') {
+            this.world.random();
+            this.canvas.redraw(this.world.getWorld(), this.color);
+        } else {
+            // 2 random colors
+            let c = this.colors.slice(0, 2);
+            this.world.randomVersion2();
+            this.canvas.reDrawWithColor(this.world.getWorld(), c);
+        }
     }
 
     next() {
         this.stop();
-        this.world.nextGeneration();
-        this.canvas.redraw(this.world.getWorld());
+        if (this.mode.getCurrentMode() === 'original'){
+            this.world.nextGeneration();
+            this.canvas.redraw(this.world.getWorld());
+        }else {
+            this.world.nextGenerationVersion2(this.civilizations);
+            this.canvas.reDrawWithColor(this.world.getWorld(), this.colors.slice(0, this.civilizations));
+        }
     }
 
     previous() {
@@ -144,22 +170,48 @@ export class Gameplay {
         this.canvas.redraw(this.world.getWorld());
     }
 
+    addCivilization (n) {
+        if (this.civilizations + n >= this.permissions.minCivilization && this.civilizations + n <= this.permissions.maxCivilization)
+            this.civilizations += n
+        document.getElementById('display-civilizations').innerHTML = this.civilizations;
+    }
+
+    changeCivilization(n) {
+        if (this.currentCivilization + n >= 1 && this.currentCivilization + n <= this.civilizations)
+            this.currentCivilization += n
+        document.getElementById('display-current-civilization').innerHTML = this.currentCivilization;
+    }
+
     zoomIn() {
         // this.stop();
         this.dimension.zoomIn();
-        this.canvas.resize(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld(), this.color);
+        if (this.mode.getCurrentMode() === 'original')
+            this.canvas.resize(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld(), this.color);
+        else {
+            let c = this.colors.slice(0, this.civilizations);
+            this.canvas.resizeWithColors(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld(), c);
+        }
     }
 
     zoomOut() {
         // this.stop();
         this.dimension.zoomOut();
-        this.canvas.resize(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld(), this.color);
+        if (this.mode.getCurrentMode() === 'original')
+            this.canvas.resize(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld(), this.color);
+        else {
+            let c = this.colors.slice(0, this.civilizations);
+            this.canvas.resizeWithColors(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld(), c);
+        }
     }
 
     resetZoom() {
         // this.stop();
         this.dimension.reset();
-        this.canvas.resize(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld(), this.color);
+        if (this.mode.getCurrentMode() === 'original')
+            this.canvas.resize(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld(), this.color);
+        else {
+            this.canvas.resizeWithColors(this.dimension.width, this.dimension.height, this.dimension.cellSize, this.world.getWorld(), this.color);
+        }
     }
 
 
@@ -192,13 +244,13 @@ export class Gameplay {
         this.drawing = draw;
         this.erasing = erase;
 
-        this.eraseButton.style.backgroundColor = COLOR.primary;
-        this.drawerButton.style.backgroundColor = COLOR.primary;
+        this.buttonManager.eraseButton.style.backgroundColor = COLOR.primary;
+        this.buttonManager.drawerButton.style.backgroundColor = COLOR.primary;
 
         if (this.drawing) {
-            this.drawerButton.style.backgroundColor = 'rgb(0, 255, 0)';
+            this.buttonManager.drawerButton.style.backgroundColor = 'rgb(0, 255, 0)';
         } else if (this.erasing) {
-            this.eraseButton.style.backgroundColor = 'rgb(0, 255, 0)';
+            this.buttonManager.eraseButton.style.backgroundColor = 'rgb(0, 255, 0)';
         }
     }
 
@@ -228,12 +280,18 @@ export class Gameplay {
     edit(e) {
         let x = Math.floor(e.offsetX / this.dimension.cellSize);
         let y = Math.floor(e.offsetY / this.dimension.cellSize);
-        if (this.drawing)
-            this.world.setCellToTrue(y, x);
-        else if (this.erasing)
+        if (this.drawing) {
+            if (this.mode.getCurrentMode() === 'original') {
+                this.world.setCellToTrue(y, x);
+                this.canvas.drawCellWithColor(x, y, this.color);
+            } else {
+                this.world.setCell(y, x, this.currentCivilization)
+                this.canvas.drawCellWithColor(x, y, this.colors[this.currentCivilization - 1]);
+            }
+        } else if (this.erasing){
             this.world.setCellToFalse(y, x);
-        if (this.drawing || this.erasing)
-        this.canvas.drawCellWithColor(x, y, this.world.getWorld()[y][x] ? this.color : COLOR.black);
+            this.canvas.drawCellWithColor(x, y, COLOR.black);
+        }
     }
 
     toogleErase() {
@@ -280,268 +338,9 @@ export class Gameplay {
         let index = this.colors.indexOf(this.color);
         index = (index + 1) % this.colors.length;
         this.color =  this.colors[index];
-        this.colorButton.style.backgroundColor = this.color;
+        this.buttonManager.colorButton.style.backgroundColor = this.color;
     }
 
-    initButton () {
-
-        // auto add button
-        // this.autoAddButton = document.getElementById('btn-auto-random');
-        // this.autoAddButton.addEventListener('click', () => {
-        //     console.log(this.autoAdd)
-        //     if (this.autoAdd) {
-        //         this.autoAdd = false;
-        //         this.autoAddButton.background = COLOR.primary;
-        //     } else {
-        //         this.autoAdd = true;
-        //         this.autoAddButton.background = 'rgb(0, 255, 0)';
-        //     }
-        // });
-
-        // random color button
-        this.randomColorButton = document.getElementById('btn-multi-color');
-        this.randomColorButton.addEventListener('click', () => {
-            if (this.multiColor) {
-                this.multiColor = false;
-                this.randomColorButton.style.border = 'none';
-            } else {
-                this.multiColor = true;
-                this.randomColorButton.style.border = '2px solid #ffffff';
-            }
-        });
-
-        //color button
-        this.colorButton = document.getElementById('btn-color');
-        this.colorButton.addEventListener('click', () => {
-            // get random color
-            this.getNextColors();
-        });
-        // get play button
-        this.playButton = document.getElementById('btn-play');
-        this.playButton.addEventListener('click', () => this.play());
-
-        // get reset button
-        this.resetButton = document.getElementById('btn-reset');
-        this.resetButton.addEventListener('click', () => this.reset());
-
-        // get previous button
-        this.previousButton = document.getElementById('btn-previous');
-        this.previousButton.addEventListener('click', () => this.previous());
-
-        // get next button
-        this.nextButton = document.getElementById('btn-next');
-        this.nextButton.addEventListener('click', () => this.next());
-
-
-        // get random button
-        this.randomButton = document.getElementById('btn-random');
-        this.randomButton.addEventListener('click', () => this.random());
-
-        // get zoom in button
-        this.zoomInButton = document.getElementById('btn-zoom-in');
-        this.zoomInButton.addEventListener(this.event+'down', () => {
-            this.zoomChangeInterval = setInterval(() => this.zoomIn(), 175);
-
-            this.zoomInButton.addEventListener(this.event+'up', () => {
-                clearInterval(this.zoomChangeInterval);
-            });
-
-            this.zoomInButton.addEventListener(this.event+'leave', () => {
-                clearInterval(this.zoomChangeInterval);
-            });
-        });
-
-
-        // get zoom out button
-        this.zoomOutButton = document.getElementById('btn-zoom-out');   
-        this.zoomOutButton.addEventListener(this.event+'down', () => {
-            this.zoomChangeInterval = setInterval(() => this.zoomOut(), 175);
-
-            this.zoomOutButton.addEventListener(this.event+'up', () => {
-                clearInterval(this.zoomChangeInterval);
-            });
-
-            this.zoomOutButton.addEventListener(this.event+'leave', () => {
-                clearInterval(this.zoomChangeInterval);
-            });
-        });
-
-
-        // get reset zoom button
-        this.resetZoomButton = document.getElementById('btn-zoom-reset');
-        this.resetZoomButton.addEventListener('click', () => this.resetZoom());
-
-        // get speed input
-        this.speedlessButton = document.getElementById('btn-speed-less');
-        this.speedlessButton.addEventListener(this.event+'down', () => {
-            this.speedChangeInterval = setInterval(() => this.changeSpeed(-5), 175);
-
-            this.speedlessButton.addEventListener(this.event+'up', () => {
-                clearInterval(this.speedChangeInterval);
-            });
-
-            this.speedlessButton.addEventListener(this.event+'leave', () => {
-                clearInterval(this.speedChangeInterval);
-            });
-        });
-
-
-        this.speedmoreButton = document.getElementById('btn-speed-more');
-        this.speedmoreButton.addEventListener(this.event+'down', () => {
-            this.speedChangeInterval = setInterval(() => this.changeSpeed(5), 175);
-
-            this.speedmoreButton.addEventListener(this.event+'up', () => {
-                clearInterval(this.speedChangeInterval);
-            });
-
-            this.speedmoreButton.addEventListener(this.event+'leave', () => {
-                clearInterval(this.speedChangeInterval);
-            });
-        });
-
-
-        //get button drawer
-        this.drawerButton = document.getElementById('btn-drawer');
-        this.drawerButton.addEventListener('click', () => {
-            this.toogleDrawer()
-            this.canvas.canvas.addEventListener('click', (e) => {
-                    this.edit(e);
-            }, false)
-        });
-
-        //get button erase
-        this.eraseButton = document.getElementById('btn-eraser');
-        this.eraseButton.addEventListener('click', () => this.toogleErase());
-
-        //get button nav-up
-        this.navUpButton = document.getElementById('btn-nav-up');
-        this.navUpButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(0, 1), 175);
-
-            this.navUpButton.addEventListener(this.event+'up', () => {
-                clearInterval(this.navInterval)
-            })
-
-            this.navUpButton.addEventListener(this.event+'leave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
-
-
-        //get button nav-down
-        this.navDownButton = document.getElementById('btn-nav-down');
-        this.navDownButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(0, -1), 175)
-
-            this.navDownButton.addEventListener(this.event+'up', () => {
-                clearInterval(this.navInterval)
-            })
-
-            this.navDownButton.addEventListener(this.event+'leave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
-
-
-        //get button nav-left
-        this.navLeftButton = document.getElementById('btn-nav-left');
-        this.navLeftButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(1, 0), 175)
-
-            this.navLeftButton.addEventListener(this.event+'up', () => {
-                clearInterval(this.navInterval)
-            })
-
-            this.navLeftButton.addEventListener(this.event+'leave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
-
-
-        //get button nav-right
-        this.navRightButton = document.getElementById('btn-nav-right');
-        this.navRightButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(-1, 0), 175)
-
-            this.navRightButton.addEventListener(this.event+'up', () => {
-                clearInterval(this.navInterval)
-            })
-
-            this.navRightButton.addEventListener(this.event+'leave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
-
-
-        //get button nav-left-up
-        this.navLeftUpButton = document.getElementById('btn-nav-left-up');
-        this.navLeftUpButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(1, 1), 175)
-
-            this.navLeftUpButton.addEventListener(this.event+'up', () => {
-                clearInterval(this.navInterval)
-            })
-
-            this.navLeftUpButton.addEventListener(this.event+'leave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
-
-
-        //get button nav-right-up
-        this.navRightUpButton = document.getElementById('btn-nav-right-up');
-        this.navRightUpButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(-1, 1), 175)
-
-            this.navRightUpButton.addEventListener(this.event+'up', () => {
-                clearInterval(this.navInterval)
-            })
-
-            this.navRightUpButton.addEventListener(this.event+'leave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
-
-
-        //get button nav-left-down
-        this.navLeftDownButton = document.getElementById('btn-nav-left-down');
-        this.navLeftDownButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(1, -1), 175)
-
-            this.navLeftDownButton.addEventListener(this.event+'up', () => {
-                clearInterval(this.navInterval)
-            })
-
-            this.navLeftDownButton.addEventListener(this.event+'leave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
-
-
-        //get button nav-right-down
-        this.navRightDownButton = document.getElementById('btn-nav-right-down');
-        this.navRightDownButton.addEventListener(this.event+'down', () => {
-            this.navInterval = setInterval(() => this.moveTo(-1, -1), 175)
-
-            this.navRightDownButton.addEventListener(this.event+'up', () => {
-                clearInterval(this.navInterval)
-            })
-
-            this.navRightDownButton.addEventListener(this.event+'leave', () => {
-                clearInterval(this.navInterval)
-            })
-        });
-
-
-        //get button btn-nav-center
-        this.navCenterButton = document.getElementById('btn-nav-center');
-        this.navCenterButton.addEventListener('click', () => {
-            this.x = 0;
-            this.y = 0;
-            this.canvas.canvas.style.transform = `translate(${this.x}px, ${this.y}px)`;
-        });
-
-    }
 
     onFucus (e) {
         if (!this.dropping) return;
@@ -558,8 +357,12 @@ export class Gameplay {
         let x = Math.floor(e.offsetX / this.dimension.cellSize);
         let y = Math.floor(e.offsetY / this.dimension.cellSize);
 
-        this.world.addObject(this.droppingObject.cells, x + 1, y + 1);
-        this.canvas.drawCells(this.world.getCellsChange(), this.color);
+        this.world.addObject(this.droppingObject.cells, x + 1, y + 1, this.currentCivilization);
+        if (this.mode.getCurrentMode() === 'original') {
+            this.canvas.drawCells(this.world.getCellsChange(), this.color);
+        } else {
+            this.canvas.drawCellsWithColors(this.world.getCellsChange(), this.colors.slice(0, this.civilizations));
+        }
 
         this.container.removeChild(document.getElementById("cursor-focus"));
         document.querySelector('.top-left').removeChild(document.getElementById("delete-button"));
