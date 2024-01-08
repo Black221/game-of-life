@@ -35,4 +35,4 @@ let gameplay = new Gameplay(canvas, dimension, mode, footer, dialog, mobile);
 new Sidebar(gameplay, STILL_LIFE);
 new Header(gameplay, mode, dialog);
 
-new Modal();
+//new Modal();
